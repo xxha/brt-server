@@ -12,7 +12,7 @@ brt-server:$(OBJ)
 	$(CC) $^ $(LFLAG) -o $@
 	cp -v $@ $(TFTP_BOOT_DIR)
 	cp brt-bump.sh $(TFTP_BOOT_DIR)
-	sz $@
+	#sz $@
 arp.o:arp.c arp.h pub.h
 	$(CC) $< $(CFLAG) 
 ip.o:ip.c ip.h
@@ -32,7 +32,7 @@ ipc_monitor.o:ipc_monitor.c ipc_monitor.h
 bindrt-test:bindrt-test.o  libbindrt.a
 	$(CC)  -o $@ $< -L . -l bindrt 
 	cp -v bindrt-test /var/lib/tftpboot
-	sz $@
+	#sz $@
 libbindrt.a:bindrt.o bindrt.h msgque.h
 	ar -rc $@  $<
 bindrt-test.o:bindrt-test.c bindrt.h
