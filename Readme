@@ -1,0 +1,17 @@
+   This program control the package routing by binding host route dynamiclly. The brt-server is the abbreviation of
+ bind route server .
+
+1).Compile the program.
+   make
+   
+   Note:If you use tftp,please modify the TFTP_BOOT_DIR as your environment.
+2) Insall
+   Please add the following code to /etc/rc.local.
+   /usr/app/brt-bump.sh & 
+  
+   Please copy brt-server to /usr/app directory and make it excutable.
+
+
+  Note: The path of application and script will be changed in the future. Now it only be used for testing.
+
+ 	

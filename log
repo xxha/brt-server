@@ -1,0 +1,13 @@
+2010-11-25: version 1.0.0
+2010-11-25: version 1.0.1 .Fix a bug of file redirect. 
+2010-12-3:  Version 1.0.2 .Support vlan;Support suspend to yield cpu. Support discovery in lan.
+2010-12-6:  Version 1.0.3 .Fix a bug in the message queue comunication. buffer size is enlarge.
+2010-12-7:  Version 1.0.4 .Add net device name mapping for vlan .It can support vlan now.
+2010-12-28: Version 1.0.5 .Fix a bug of comparing mac address in the arp packets processing.
+2010-12-31: Version 1.0.6 .Optimized the message queue mechanism.
+2011-1-12:  Version 1.0.7 .Optimized the route.c .
+2011-1-20:  Version 1.0.8 .Add gateway API ,add gateway infomation in the host route binding.Adjust the IPC module to
+                           a sole module (ipc_monitor.c and ipc_monitor.h). 
+2011-1-26:  Version 1.0.9 .Comment out a print information .
+2011-1-26:  Version 1.0.10.Comment out a printf in the packet_monitor.c
+2011-2-23:  Version 1.0.11.Comment out a printf in the get_dev_mac_address function.
