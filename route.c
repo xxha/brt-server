@@ -52,15 +52,18 @@ inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned c
 	unsigned int netmask;
 	unsigned char rt_gateway[16];
 	int add_new_host_route;
-
+	char local_gw[32];
+	
 	unsigned int dstip,hostip,mask;
 
-	//printf("dst_addr:%s  net_mask:%s gateway:%s dev_name:%s host ip:%s\n",dst_addr,net_mask,gw,dev_name,host_ip);
+	printf("dst_addr:%s  net_mask:%s gateway:%s dev_name:%s host ip:%s\n",dst_addr,net_mask,gw,dev_name,host_ip);
+	
 	/* deal with exception */
 	if((strcmp(EXCEPT_DST_ADR,dst_addr)==0)||(!isdigit(dst_addr[0]))){
 		//printf("%s:%d dst_addr:%s\n",__FILE__,__LINE__,dst_addr);
 		return -1;
 	}
+	strcpy(local_gw,gw);
 	/*dealwith broad cast */
 	inet_aton(dst_addr, &inpIP);
 	//printf("%s %08x\n",dst_addr,inpIP.s_addr);
@@ -68,7 +71,7 @@ inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned c
 		printf("%s:%d\n",__FILE__,__LINE__);
 		//printf("%s %08x\n",dst_addr,inpIP.s_addr);
 		//pthread_mutex_lock(&rt_table_mutex);	
-		ret=broadcast(dst_addr,net_mask,gw,dev_name);
+		ret=broadcast(dst_addr,net_mask,local_gw,dev_name);
 		//pthread_mutex_unlock(&rt_table_mutex);			
 		return 0;
 	}
@@ -97,7 +100,7 @@ inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned c
 			continue;
 		}
 		//ip same ,dev same ,compare the gateway.
-		if(strcmp(gw,"0.0.0.0")==0){
+		if(strcmp(local_gw,"0.0.0.0")==0){
 			add_new_host_route--;//the old one have more fluent infomation than the new one .
 			continue;
 		}
@@ -115,7 +118,7 @@ inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned c
 			memcpy(rt_gateway,head,tail-head);
 			rt_gateway[tail-head]=0x00;			
 		}
-		if(strcmp(rt_gateway,gw)==0){
+		if(strcmp(rt_gateway,local_gw)==0){
 			add_new_host_route--;//they are not empty, but are equal. so leave it alone .
 			continue;
 		}else{
@@ -152,15 +155,15 @@ inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned c
 		//printf("%08x %08x\n",dstip&mask,hostip&mask);
 		if((dstip&mask)==(hostip&mask)){//same subnet.
 			//printf("%s:%d\n",__FILE__,__LINE__);
-			strcpy(gw,"0.0.0.0");
+			strcpy(local_gw,"0.0.0.0");
 		}else{
 			//printf("%s:%d\n",__FILE__,__LINE__);
-			if(strcmp(gw,"0.0.0.0")==0){
+			if(strcmp(local_gw,"0.0.0.0")==0){
 				pclose(pipeFile);
 				return ;// different subnet ,need to have gateway.
 			}
 		}
-		sprintf(cmd,"np route add %s via %s dev %s ",dst_addr,gw,dev_name);		
+		sprintf(cmd,"np route add %s via %s dev %s ",dst_addr,local_gw,dev_name);		
 		system(cmd);
 	}
 

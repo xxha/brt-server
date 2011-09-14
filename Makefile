@@ -1,5 +1,5 @@
 #CC=gcc
-VERSION=\"1.0.11\"
+VERSION=\"1.0.12\"
 AUTHOR=\"zhangxueqing\"
 TFTP_BOOT_DIR=/var/lib/tftpboot
 CC=arm-none-linux-gnueabi-gcc

@@ -213,6 +213,7 @@ void *ipc_monitor(void *para){
 				for(i=0;i<DEV_COUNTS;i++){
 					if(strcmp(msgDevNetInfo->dev_name,dev_socket[i].name)==0){
 						strcpy(dev_socket[i].gateway,msgDevNetInfo->gateway);
+						printf("dev_name:%s new gateway:%s\n",dev_socket[i].name,dev_socket[i].gateway);
 						strcpy(msgDevNetInfo->status,"Success");
 						break;
 					}
