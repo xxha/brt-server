@@ -41,7 +41,7 @@ void *packet_monitor(void *para){
 	struct timespec delay_req,delay_rem;
 	
 	struct sockaddr_ll peerSockAddr;
-	int ret,i,len,pack_len,status;
+	int i,ret,len,pack_len,status;
 	unsigned char *buf=NULL;
 	unsigned char resultBuf[32];
 	struct sockaddr_ll l2;
@@ -49,7 +49,9 @@ void *packet_monitor(void *para){
 	unsigned char fileName[128],cmd[128];
 	unsigned char host_ip[32];
 	int vlan_len;
-		
+
+
+	
 	if(para==NULL){//It should not read here ,only occur in the debug steps.
 		printf("One can't make bricks without straw :).\n");
 		exit(FAIL_ILLEGAL_PARA_FOR_THREAD);
@@ -74,6 +76,7 @@ void *packet_monitor(void *para){
 BootUp:
 	delay_req.tv_sec=0;
 	delay_req.tv_nsec=200*1000*1000;//200ms
+#if 0	
 	while(1){//the device may disapper 
 		
 		nanosleep(&delay_req,&delay_rem);
@@ -91,10 +94,19 @@ BootUp:
 		else
 			break;
 	}
+#endif
 	delay_req.tv_sec=0;
 	delay_req.tv_nsec=100*1000*1000;//100ms
 	while(1){
-
+		/* do we should work ? the leaders command */
+		if(!sockPtr->work){
+			//printf("%d\n",sockPtr->work);
+			nanosleep(&delay_req,&delay_rem);
+			continue;
+		}
+		//printf("%d\n",sockPtr->work);
+		bind_socket_to_devname(sockPtr);
+		
 		//-- Check the exit command.
 		if(sockPtr->cmd==CMD_EXIT){
 			sockPtr->status=STATUS_DEAD;
@@ -102,35 +114,36 @@ BootUp:
 			pthread_exit(&ret);
 		}
 		
-
 		nanosleep(&delay_req,&delay_rem);
 		
 		memset(buf,0x00,sizeof(buf));
 		ret=recvfrom(sockPtr->sock,buf,MAX_FRAME_SIZE,0,(struct sockaddr *)&peerSockAddr,&len);
 		//ret=recvfrom(sockPtr->sock,buf,MAX_FRAME_SIZE,MSG_DONTWAIT,(struct sockaddr *)&peerSockAddr,&len);
 	 	if(ret == -1){
-	 		//perror(NULL);
-	    	//printf("Error occur when reading data from %s socket\n",sockPtr->name);
+	 		perror(NULL);
+	    	printf("Error occur when reading data from %s socket\n",sockPtr->name);
 	    	//ret=ERR_RCV_SOCK_DATA;
 			//pthread_exit(&ret);
 			goto BootUp;
 		}
 		pack_len=ret;
 
+		//printf("%s:%d\n",__FILE__,__LINE__);
 		if((0==pack_len)||(pack_len>MAX_FRAME_SIZE)){
 			//printf("Length is illegal\n");
 			continue;
 		}
-		
+
+		//printf("%s:%d\n",__FILE__,__LINE__);		
 		/*filter the packet which is not for me.*/
 		if(((buf[0]!=sockPtr->mac[0])||(buf[1]!=sockPtr->mac[1])||(buf[2]!=sockPtr->mac[2])||(buf[3]!=sockPtr->mac[3])||(buf[4]!=sockPtr->mac[4])||(buf[5]!=sockPtr->mac[5]))&&
 		((buf[0]!=0xFF)||(buf[1]!=0xFF)||(buf[2]!=0xFF)||(buf[3]!=0xFF)||(buf[4]!=0xFF)|(buf[5]!=0xFF))){
 			//printf("Discard:%2x %02x %2x %02x %2x %02x\n",buf[0],buf[1],buf[2],buf[3],buf[4],buf[5]);
+			//printf("Discard:%2x %02x %2x %02x %2x %02x\n",sockPtr->mac[0],sockPtr->mac[1],sockPtr->mac[2],sockPtr->mac[3],sockPtr->mac[4],sockPtr->mac[5]);
 			continue;//The packate is not for me ,discard it.
 			}
 
-		
-
+		//printf("%s:%d\n",__FILE__,__LINE__);
 #if 0
 		
 		int j,k;
@@ -163,6 +176,8 @@ BootUp:
 		shift_vlan_buf(buf,&vlan_len);
 		
 #endif			
+
+#if 0
 		/*get my ip address*/
 		strcpy(ifr.ifr_name,sockPtr->alias);
 		ret=ioctl(sockPtr->sock,SIOCGIFADDR,&ifr);
@@ -172,8 +187,12 @@ BootUp:
 			//printf("Failed to retrive the interface ip address %s\n ",sockPtr->alias);
 			continue;
 		}
-		
+
 		sockPtr->ip_addr=(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr.s_addr);
+#endif
+
+		inet_pton(AF_INET, sockPtr->ip_deci_dot,&sockPtr->ip_addr);
+		//perror(NULL);
 		for(i=0;i<sizeof(proto_ops);i++){					
 			if((buf[ETHER_PROTO_OFF+vlan_len]==proto_ops[i].hiByte)&&(buf[ETHER_PROTO_OFF+vlan_len+1]==proto_ops[i].loByte)){
 				//memset(resultBuf,0x00,sizeof(resultBuf));
@@ -200,11 +219,13 @@ BootUp:
 		//printf("%s\n",resultBuf);
 		//printf("Threadid:%d,%s %d.\n",pthread_self(),sockPtr->name,sockPtr->ip_addr);
 		/*add route */	
+#if 0
 		if(!inet_ntop(AF_INET,&sockPtr->ip_addr,host_ip,sizeof(host_ip))){
 			perror(NULL);
 			return;
 		}
-		keep_route(resultBuf,sockPtr->netmask,sockPtr->gateway,sockPtr->alias,host_ip);
+#endif
+		keep_route(resultBuf,sockPtr->netmask,sockPtr->gateway,sockPtr->alias,sockPtr->ip_deci_dot);
 		//printf("Threadid:%d,%s %d.\n",pthread_self(),sockPtr->name,sockPtr->ip_addr);
 	}
 }

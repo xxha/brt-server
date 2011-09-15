@@ -299,9 +299,15 @@ NET_DEV_INFO_RET_INFO v100p_set_net_info(DEV_NET_INFO *devNetInfoPtr){
 
 	strcpy(msgBody->dev_name,devNetInfoPtr->dev_name);
 	strcpy(msgBody->gateway,devNetInfoPtr->gateway);
+	strcpy(msgBody->ip,devNetInfoPtr->ip);
+	strcpy(msgBody->netmask,devNetInfoPtr->netmask);
+	memcpy(msgBody->mac,devNetInfoPtr->mac,6);
+	msgBody->work=devNetInfoPtr->work;
 
 	printf("%s:%d  dev_name:%s gateway:%s\n",__FILE__,__LINE__,msgBody->dev_name,msgBody->gateway);
-
+	printf("%s:%d  ip:%s netmask:%s\n",__FILE__,__LINE__,msgBody->ip,msgBody->netmask);
+	printf("%s:%d  mac:%02x %02x %02x %02x %02x %02x\n",__FILE__,__LINE__,msgBody->mac[0],msgBody->mac[1],msgBody->mac[2],msgBody->mac[3],msgBody->mac[4],msgBody->mac[5]);	
+	printf("%s:%d  work:%d \n",__FILE__,__LINE__,msgBody->work);
 	ret=msgsnd(msgid_c2s, &msg, sizeof(struct msgtype),0);
 	if(ret==-1){
 		perror("Clinet:");

@@ -36,6 +36,7 @@ typedef struct{
 	unsigned char name[MAX_ETH_NAME_LEN];
 	unsigned char alias[MAX_ETH_NAME_LEN];	
 	unsigned int ip_addr;//net order.
+	unsigned char ip_deci_dot[32];
 	unsigned char mac[6];
 	unsigned char gateway[32];
 	unsigned char netmask[32];
@@ -43,6 +44,7 @@ typedef struct{
 	volatile int update;
 	volatile CMD_INFO cmd;
 	volatile STATUS_INFO status;
+	char work;//0,sleep,1 work.
 }SOCKET_INFO;
 typedef struct{
 	unsigned char hiByte;

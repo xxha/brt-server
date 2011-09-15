@@ -57,11 +57,10 @@ typedef struct {
 	unsigned char dev_name[32];
 	unsigned char gateway[32];
 	unsigned char status[32];
-#if 0 //maybe is needed in the future the following  fields.
-	unsigned char netmask[];
-	unsigned char ip[];
-	unsigned char mac[];
-#endif
+	unsigned char netmask[32];
+	unsigned char ip[32];
+	unsigned char mac[32];
+	char work;// 0,sleep ,1 work.
 }DEV_NET_INFO;
 BIND_RET_INFO v100p_bind_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned char *gw,unsigned char *dev_name);
 NET_DEV_NAME_RET_INFO v100p_net_name_map(NET_DEV_NAME_MAP_NODE *list,int counts);

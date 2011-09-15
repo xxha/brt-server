@@ -56,7 +56,7 @@ inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned c
 	
 	unsigned int dstip,hostip,mask;
 
-	printf("dst_addr:%s  net_mask:%s gateway:%s dev_name:%s host ip:%s\n",dst_addr,net_mask,gw,dev_name,host_ip);
+	//printf("dst_addr:%s  net_mask:%s gateway:%s dev_name:%s host ip:%s\n",dst_addr,net_mask,gw,dev_name,host_ip);
 	
 	/* deal with exception */
 	if((strcmp(EXCEPT_DST_ADR,dst_addr)==0)||(!isdigit(dst_addr[0]))){

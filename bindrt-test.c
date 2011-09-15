@@ -6,10 +6,10 @@
 void usage(unsigned char *process){
 	printf("Usage:\t%s -r dst_ip net_mask gate_way dev_name\n",process);
 	printf("\t%s -v org_dev_name new_dev_name\n",process);
-	printf("\t%s -n dev_name gateway",process);
+	printf("\t%s -n dev_name ip netmask gateway",process);
 	printf("For exmaples\n:\t%s -r 192.168.8.110 255.255.255.0 192.168.8.1 eth0 \n",process);
 	printf("\t%s -v eth0.1 eth0.99 \n",process);
-	printf("\t%s -n eth0 192.168.8.1 \n",process);
+	printf("\t%s -n eth0 192.168.8.234 255.255.255.0 192.168.8.1 \n",process);
 	
 }
 int bind_route(unsigned char *argv[]){
@@ -44,7 +44,16 @@ int set_gateway(unsigned char *argv[]){
 	NET_DEV_INFO_RET_INFO netDevNameRetInfo;
 	
 	strcpy(devnetinfo.dev_name,argv[0]);
-	strcpy(devnetinfo.gateway,argv[1]);
+	strcpy(devnetinfo.ip,argv[1]);
+	strcpy(devnetinfo.netmask,argv[2]);
+	strcpy(devnetinfo.gateway,argv[3]);
+	devnetinfo.mac[0]=0x00;
+	devnetinfo.mac[1]=0x18;
+	devnetinfo.mac[2]=0x63;
+	devnetinfo.mac[3]=0x00;
+	devnetinfo.mac[4]=0x00;
+	devnetinfo.mac[5]=0x10;
+	devnetinfo.work=1;
 	netDevNameRetInfo=v100p_set_net_info(&devnetinfo);
 	printf("ret value:%d ret info:%s\n",netDevNameRetInfo.val,netDevNameRetInfo.errInfo);
 }

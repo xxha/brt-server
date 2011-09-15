@@ -36,6 +36,7 @@ SOCKET_INFO dev_socket[MAX_DEV_NAMES]={
  		.update=1,
  		.cmd=CMD_RUN,
  		.status=STATUS_IDEL,
+ 		.work=0,
 	},
 
 	{
@@ -47,6 +48,7 @@ SOCKET_INFO dev_socket[MAX_DEV_NAMES]={
  		.update=1,
  		.cmd=CMD_RUN,
  		.status=STATUS_IDEL,
+ 		.work=0,
 
  		
 	},
@@ -60,6 +62,7 @@ SOCKET_INFO dev_socket[MAX_DEV_NAMES]={
  		.update=1, 	
  		.cmd=CMD_RUN,
  		.status=STATUS_IDEL,
+ 		.work=0,
 
 	}
 

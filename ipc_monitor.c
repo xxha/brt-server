@@ -213,7 +213,13 @@ void *ipc_monitor(void *para){
 				for(i=0;i<DEV_COUNTS;i++){
 					if(strcmp(msgDevNetInfo->dev_name,dev_socket[i].name)==0){
 						strcpy(dev_socket[i].gateway,msgDevNetInfo->gateway);
+						strcpy(dev_socket[i].ip_deci_dot,msgDevNetInfo->ip);
+						memcpy(dev_socket[i].mac,msgDevNetInfo->mac,6);
+						strcpy(dev_socket[i].netmask,msgDevNetInfo->netmask);
+						dev_socket[i].work=msgDevNetInfo->work;
+						printf("%s:%d work:%d\n",__FILE__,__LINE__,dev_socket[i].work);
 						printf("dev_name:%s new gateway:%s\n",dev_socket[i].name,dev_socket[i].gateway);
+						printf("mac:%02x %02x %02x %02x %02x %02x\n",dev_socket[i].mac[0],dev_socket[i].mac[1],dev_socket[i].mac[2],dev_socket[i].mac[3],dev_socket[i].mac[4],dev_socket[i].mac[5]);
 						strcpy(msgDevNetInfo->status,"Success");
 						break;
 					}
