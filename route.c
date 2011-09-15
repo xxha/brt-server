@@ -163,7 +163,7 @@ inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned c
 				return ;// different subnet ,need to have gateway.
 			}
 		}
-		sprintf(cmd,"np route add %s via %s dev %s ",dst_addr,local_gw,dev_name);		
+		sprintf(cmd,"np route add %s via %s dev %s  %s",dst_addr,local_gw,dev_name,HIDE_CMD_INFO);		
 		system(cmd);
 	}
 
