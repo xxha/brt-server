@@ -37,6 +37,7 @@ SOCKET_INFO dev_socket[MAX_DEV_NAMES]={
  		.cmd=CMD_RUN,
  		.status=STATUS_IDEL,
  		.work=0,
+ 		.order=0,
 	},
 
 	{
@@ -49,8 +50,7 @@ SOCKET_INFO dev_socket[MAX_DEV_NAMES]={
  		.cmd=CMD_RUN,
  		.status=STATUS_IDEL,
  		.work=0,
-
- 		
+ 		.order=1,
 	},
 
 	{
@@ -63,10 +63,13 @@ SOCKET_INFO dev_socket[MAX_DEV_NAMES]={
  		.cmd=CMD_RUN,
  		.status=STATUS_IDEL,
  		.work=0,
-
+ 		.order=2,
 	}
 
 };
+
+#ifndef DROUTE
+
 PROTO_OPS proto_ops[2]={
 
 #ifdef ETH_IP
@@ -78,6 +81,7 @@ PROTO_OPS proto_ops[2]={
 #endif
 };
 
+#endif
 
 IPC_MONITOR_INFO ipcMonitorInfo={
 	.cmd=CMD_RUN,
@@ -85,8 +89,10 @@ IPC_MONITOR_INFO ipcMonitorInfo={
 
 };
 
+extern unsigned int g_netadd[3];
 
 inline static void shift_vlan_buf(unsigned char *p,int *len);
+void *droute_process(void *para);
 
 int DEV_COUNTS=sizeof(dev_socket)/sizeof(SOCKET_INFO);
 int main(int argc,char *argv[]){
@@ -145,12 +151,17 @@ int main(int argc,char *argv[]){
 	
 	/*create socket*/
 	for(i=0;i<MAX_DEV_NAMES;i++){
+		
+	#ifdef DROUTE
+	    printf("droute process will run on the %d interface.\n",i);
+	#else
 		dev_socket[i].sock=socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL ));
 		if(dev_socket[i].sock<0){
 			printf("Failed to create socket for %s .\n",dev_socket[i].name);
 			ret=ERR_CREATE_SOCKET;
 			goto Out2;
-		}		
+		}	
+	#endif
 
 #if 0		
 		ret=get_dev_mac_address(&dev_socket[i]);
@@ -164,17 +175,28 @@ int main(int argc,char *argv[]){
 			printf("%s:%d-%s\n",__FILE__,__LINE__,"Failed to bind socket to device.");
 			//return -1;
 		}
-#endif			
-		ret=pthread_attr_init(&attr[i]);
+#endif	
+
+     ret=pthread_attr_init(&attr[i]);
 		if(ret!=0){
 			printf("%s:%d-Faile to init thread attribute. %d .\n ",__FILE__,__LINE__);
 			return -3;
 		}
+#ifdef DROUTE
+     g_netadd[i] = 0;
+     printf("use pcap mechanism,so don't need to use RAW to process the packets\n");
+     ret=pthread_create(&thread_sock[i],&attr[i],droute_process,&dev_socket[i]);
+		if(ret!=0){
+			printf("%s:%d-Faile to init thread attribute. %d .\n ",__FILE__,__LINE__);
+			return -4;
+		}
+#else
 		ret=pthread_create(&thread_sock[i],&attr[i],packet_monitor,&dev_socket[i]);
 		if(ret!=0){
 			printf("%s:%d-Faile to init thread attribute. %d .\n ",__FILE__,__LINE__);
 			return -4;
 		}
+#endif
 	}	
 	
 	/*wait to exit */

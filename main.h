@@ -45,6 +45,9 @@ typedef struct{
 	volatile CMD_INFO cmd;
 	volatile STATUS_INFO status;
 	char work;//0,sleep,1 work.
+	void *pcap;
+	int order;
+	//unsigned int cur_netadd;
 }SOCKET_INFO;
 typedef struct{
 	unsigned char hiByte;

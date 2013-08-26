@@ -1,12 +1,15 @@
 #CC=gcc
-VERSION=\"1.0.12\"
-AUTHOR=\"zhangxueqing\"
-TFTP_BOOT_DIR=/var/lib/tftpboot
+VERSION=\"1.1.0\"
+AUTHOR=\"VEEX\"
+TFTP_BOOT_DIR=/tftpboot
 CC=arm-none-linux-gnueabi-gcc
-CFLAG=-c
-LFLAG=-lpthread
+#CFLAG=-I/usr/local/include -DDROUTE -c 
+CFLAG=-I/home/xxha/tools/pcap/arm_lib_install/include -DDROUTE -c
+#LFLAG=-L/usr/local/lib -lpcap -lpthread
+LFLAG=-L/home/xxha/tools/pcap/arm_lib_install/lib -lpcap -lpthread
 all:brt-server bindrt-test
-OBJ=main.o route.o arp.o ip.o pub.o packet_monitor.o ipc_monitor.o
+#OBJ=main.o route.o arp.o ip.o pub.o packet_monitor.o ipc_monitor.o 
+OBJ=main.o route.o ipc_monitor.o droute.o
 
 brt-server:$(OBJ)
 	$(CC) $^ $(LFLAG) -o $@
@@ -29,9 +32,13 @@ packet_monitor.o:packet_monitor.c packet_monitor.h
 	$(CC) $< $(CFLAG) 
 ipc_monitor.o:ipc_monitor.c ipc_monitor.h
 	$(CC) $< $(CFLAG) 
+droute.o:droute.c 
+	$(CC) $< $(CFLAG) 
+
+	
 bindrt-test:bindrt-test.o  libbindrt.a
 	$(CC)  -o $@ $< -L . -l bindrt 
-	cp -v bindrt-test /var/lib/tftpboot
+	cp -v bindrt-test $(TFTP_BOOT_DIR)
 	#sz $@
 libbindrt.a:bindrt.o bindrt.h msgque.h
 	ar -rc $@  $<
@@ -40,5 +47,5 @@ bindrt-test.o:bindrt-test.c bindrt.h
 bindrt.o:bindrt.c bindrt.h msgque.h
 	$(CC) $< $(CFLAG) 
 clean:
-	rm -fr $(OBJ) route-bind bindrt-test libbindrt.a bindrt.o bindrt-test.o
-	
+	rm -fr $(OBJ) route-bind bindrt-test brt-server libbindrt.a bindrt.o bindrt-test.o
+

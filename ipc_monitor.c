@@ -183,7 +183,12 @@ void *ipc_monitor(void *para){
 							strcpy(dev_socket[j].alias,msgBodyNetDevMap->net_dev_name_map_list[i].newDevName);
 							dev_socket[j].update=1;	
 							printf("%d %s %s\n",dev_socket[j].update,dev_socket[j].name,dev_socket[j].alias);
+							#ifdef DROUTE
+							printf("droute create new pcap fd for new interface");
+							ret=create_pcap(&dev_socket[j]);
+							#else
 							ret=bind_socket_to_devname(&dev_socket[j]);
+							#endif
 
 							//check the return value in the future.
 							}
@@ -197,7 +202,12 @@ void *ipc_monitor(void *para){
 					printf("%s %s\n",dev_socket[i].name,dev_socket[i].alias);
 #endif
 				//update the netdevice table.
-				strcpy(msgBodyNetDevMap->status,"Success");
+				if(ret){
+					printf("map new netdevice fail\n");
+					strcpy(msgBodyBindRoute->status,"Fail");
+				}
+				else
+					strcpy(msgBodyNetDevMap->status,"Success");
 				msg.mtype =TYPE_DEV_NAME_MAP;
 		        ret=msgsnd(msgid_s2c, &msg, sizeof(struct msgtype), 0);
 		        if(ret==-1){

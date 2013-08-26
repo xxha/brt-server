@@ -1,0 +1,18 @@
+---- system Matches (17 in 5 files) ----
+droute.c:                        system(cmd);
+droute.c:				system(cmd);
+ipc_monitor.c:		ret=system("touch "UNIQ_FILE_NAME_C2S);
+ipc_monitor.c:		ret=system("touch "UNIQ_FILE_NAME_S2C);
+ipc_monitor.c:	ret=system("rm -fr "UNIQ_FILE_NAME_S2C);
+ipc_monitor.c:	ret=system("rm -fr "UNIQ_FILE_NAME_C2S);
+ipc_monitor.c:	ret=system("touch "UNIQ_FILE_NAME_C2S);
+ipc_monitor.c:		            system(FLUSH_ROUTE_CACHE);//fixme for better performance.
+route.c:			system(cmd);
+route.c:			system(cmd);
+route.c:		system(cmd);
+route.c:	system(cmd);
+route.c:	system(cmd);
+route.c:	system(cmd);
+scan_dev_name.c:			system(cmd);
+test.c:	system("route del -host 192.168.8.234 >/dev/null 2>&1");
+test.c:	system("route del -host 192.168.8.234 >/dev/null");
