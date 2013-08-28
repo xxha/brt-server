@@ -4,9 +4,9 @@ AUTHOR=\"VEEX\"
 TFTP_BOOT_DIR=/tftpboot
 CC=arm-none-linux-gnueabi-gcc
 #CFLAG=-I/usr/local/include -DDROUTE -c 
-CFLAG=-I/home/xxha/tools/pcap/arm_lib_install/include -DDROUTE -c
+CFLAG=-I/home/xxha/tools/pcap/arm_lib/include -DDROUTE -c
 #LFLAG=-L/usr/local/lib -lpcap -lpthread
-LFLAG=-L/home/xxha/tools/pcap/arm_lib_install/lib -lpcap -lpthread
+LFLAG=-L/home/xxha/tools/pcap/arm_lib/lib -lpcap -lpthread
 all:brt-server bindrt-test
 #OBJ=main.o route.o arp.o ip.o pub.o packet_monitor.o ipc_monitor.o 
 OBJ=main.o route.o ipc_monitor.o droute.o

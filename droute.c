@@ -409,9 +409,8 @@ void *droute_process(void *para)
 		for(i=0;i<NETDEV_COUNTS;i++)
 		{
             //it's my self;
-			if(i == sockPtr->order)
-				continue;
-			
+//			if(i == sockPtr->order)
+//				continue;
 			if(g_netadd[i]>0)
 			{
 				if(g_netadd[i] == pnetaddress32)
