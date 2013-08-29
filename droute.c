@@ -148,18 +148,18 @@ int findip(char * dev, char * ipaddr,unsigned int *ip32,unsigned *netmask32)
                 return 1;
         }
 
-        for(d=alldevs; d!=NULL; d=d->next) {
+	for(d=alldevs; d!=NULL; d=d->next) {
 		if( strcmp( d->name, dev ) == 0 ){
-            for(a=d->addresses; a!=NULL; a=a->next) {
-                if(a->addr->sa_family == AF_INET)
-                {
-		         sprintf(ipaddr, " %s", inet_ntoa(((struct sockaddr_in*)a->addr)->sin_addr));
-				 if(ip32)
-				 	*ip32 = ((struct sockaddr_in*)a->addr)->sin_addr.s_addr;
-				 if(netmask32)
-				 	*netmask32 = ((struct sockaddr_in*)a->netmask)->sin_addr.s_addr;
-                }
-            }
+			for(a=d->addresses; a!=NULL; a=a->next) {
+				if(a->addr->sa_family == AF_INET)
+				{
+					sprintf(ipaddr, " %s", inet_ntoa(((struct sockaddr_in*)a->addr)->sin_addr));
+					if(ip32)
+						*ip32 = ((struct sockaddr_in*)a->addr)->sin_addr.s_addr;
+					if(netmask32)
+						*netmask32 = ((struct sockaddr_in*)a->netmask)->sin_addr.s_addr;
+				}
+			}
 			break;
 		}
         }
@@ -225,11 +225,6 @@ void *droute_process(void *para)
 	memset(dipaddr, 0, IP_SIZE);
 	memset(sipaddr, 0, IP_SIZE);
 
-	//if (argc != 2){ 
-	//	printf("USAGE: droute <interface>\n"); 
-	//	exit(1); 
-	//}
- 
 	 /* Open network device for packet capture */ 
 	while(1)
 	{
@@ -263,8 +258,6 @@ void *droute_process(void *para)
 
 	while(1)
 	{
-		//if( findip( p_interface, ipaddr,NULL,NULL) != 0){
-		
 		if( findip( p_interface, ipaddr,&local_ip32,&local_netmask32) != 0){
 #ifdef DEBUG
 			fprintf(stderr, "ERROR: Can't get IP address for dev: %s\n", p_interface);
@@ -284,7 +277,7 @@ void *droute_process(void *para)
 		pnet = (char*)(&g_netadd[sockPtr->order]);
 		printf("get %s netaddress is %d.%d.%d.%d\n",p_interface,*pnet,*(pnet+1),*(pnet+2),*(pnet+3));
 	}else
-	  fprintf(stderr,"ERROR:%s the order is invalid %d\n",p_interface,sockPtr->order);
+		fprintf(stderr,"ERROR:%s the order is invalid %d\n",p_interface,sockPtr->order);
 	
 	
 	iplen = strlen(ipaddr);
@@ -300,8 +293,6 @@ void *droute_process(void *para)
 
 			sleep(10);
 			continue;
-			//ret=-1;
-			//pthread_exit(&ret);
 		}else{
 			printf("pcap compile successfully\n");
 			break;
@@ -314,8 +305,6 @@ void *droute_process(void *para)
 
                         sleep(10);
                         continue;
-                        //ret=-1;
-                        //pthread_exit(&ret);
                 }else{
                         printf("pcap compile successfully\n");
                         break;
@@ -333,8 +322,6 @@ void *droute_process(void *para)
 #endif
 			sleep(10);
 			continue;
-			//ret=-1;
-			//pthread_exit(&ret);
 		}else{
 			printf("pcap compile successfully\n");
 			break;
@@ -348,12 +335,11 @@ void *droute_process(void *para)
 	while(1){ 
 		
 		if(!sockPtr->work){
-			printf("droute process work is 0\n");
 			sleep(2);
 			continue;
 		}
 
-		//-- Check the exit command.
+		/* Check the exit command. */
 		if(sockPtr->cmd==CMD_EXIT){
 			sockPtr->status=STATUS_DEAD;
 			ret=-1;
@@ -380,7 +366,7 @@ void *droute_process(void *para)
 
 		myip = inet_ntoa(ip->ip_dst);
 		strcpy(dipaddr, myip);
-        //add for netmask calculate
+		/* add for netmask calculate */
 		src_ip32 = ip->ip_src.s_addr;
 
 		memset(ipaddr, 0, IP_SIZE);
@@ -389,73 +375,63 @@ void *droute_process(void *para)
 			continue;
 		}
 
-		
-		//memset(ipaddr, 0, IP_SIZE);
-		//    if( findip( argv[1], ipaddr) != 0){
-		//           fprintf(stderr, "ERROR: Can't get IP address for dev: %s\n", argv[1]);
-		//           continue;
-		// }
-
 #ifdef DEBUG
 		printf("My IP: %s, Target IP: %s, Source IP: %s\n", ipaddr, dipaddr, sipaddr);
 #endif
 
-        //start to process the net address ,compare net address of all net device ;
+		/* start to process the net address,compare net address of all net device */
 		pnetaddress32 = local_ip32&local_netmask32;
-		src_netaddress32= src_ip32&local_netmask32;
+		src_netaddress32 = src_ip32&local_netmask32;
         
 		netadd_issame_flag = 0;
 		
 		for(i=0;i<NETDEV_COUNTS;i++)
 		{
-            //it's my self;
-//			if(i == sockPtr->order)
-//				continue;
+			if(i != sockPtr->order)
+				continue;
+
 			if(g_netadd[i]>0)
 			{
 				if(g_netadd[i] == pnetaddress32)
 				{
-				    printf("find %d and %d have the same net address\n",sockPtr->order,i);
+					printf("find %d and %d have the same net address\n",sockPtr->order,i);
 					netadd_issame_flag =1;
 					break;
 				}
 				
 			}else
-			  printf("%d net interface don't assign the net address\n",i);
+				printf("%d net interface don't assign the net address\n",i);
 		}
 
-		if(sockPtr->order < 3&&sockPtr->order>=0)
+		if(sockPtr->order < 3 && sockPtr->order >= 0)
 			g_netadd[sockPtr->order]= pnetaddress32;
 		else
 			fprintf(stderr,"ERROR:%s the order is invalid %d\n",p_interface,sockPtr->order);
 
 		if(netadd_issame_flag == 0)
 		{
-		     //#ifdef DEBUG
 			pnet = (char*)(&src_netaddress32);
 			printf("local net%u src net%u\n",pnetaddress32,src_netaddress32);
 			printf("src net address:%d.%d.%d.%d\n",*pnet,*(pnet+1),*(pnet+2),*(pnet+3));
-			 //#endif
 		    
 			if((local_ip32&local_netmask32) == (src_ip32&local_netmask32))
 			{
-			    //#ifdef DEBUG
 			    pnet = (char*)(&pnetaddress32);
 			    printf("This interface and srcip of ping in same net address:%d.%d.%d.%d\n",*pnet,*(pnet+1),*(pnet+2),*(pnet+3));
-			    //#endif
 				continue;
 			}
 		}
 		else
 		    	printf("Two net devices have same net address, so need to add to route table\n");
 		
-		//net address process completely;
-		
+		/* net address process completely */
 		if( memcmp(ipaddr+1, dipaddr, iplen-1) == 0 ){
 		        if(routecheck(sipaddr, p_interface) == 0){
                                 ethernet = (struct sniff_ethernet*)(packet);
                                 memset(dethaddr, 0, sizeof(dethaddr));
-                                sprintf(dethaddr, "%02x:%02x:%02x:%02x:%02x:%02x", ethernet->ether_shost[0], ethernet->ether_shost[1], ethernet->ether_shost[2], ethernet->ether_shost[3], ethernet->ether_shost[4], ethernet->ether_shost[5]);
+                                sprintf(dethaddr, "%02x:%02x:%02x:%02x:%02x:%02x", ethernet->ether_shost[0],
+						ethernet->ether_shost[1], ethernet->ether_shost[2], ethernet->ether_shost[3],
+						ethernet->ether_shost[4], ethernet->ether_shost[5]);
 #ifdef DEBUG
                                 printf("Add IP: %s to %s, MAC: %s to ARP table\n", sipaddr, p_interface, dethaddr);
 #endif
@@ -487,11 +463,9 @@ void *droute_process(void *para)
 				else
 					sprintf(cmd, "route add %s dev %s\n", sipaddr, p_interface);
 				
-                printf("add route:%s\n",cmd);
+				printf("add route:%s\n",cmd);
 				system(cmd);
 #endif
-
-
 		        }else{
 #ifdef DEBUG
 		                printf("We don't need add %s to the routing table\n", sipaddr);
