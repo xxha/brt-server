@@ -169,7 +169,6 @@ int findip(char * dev, char * ipaddr,unsigned int *ip32,unsigned *netmask32)
         return 0;
 }
 
-//int main(int argc, char *argv[])
 void *droute_process(void *para)
 {
 	int i=0; 
@@ -488,7 +487,6 @@ int create_pcap(SOCKET_INFO *sockPtr)
 	int iplen = 0;
 	char filter_exp[] = "icmp"; 
 
-
 	p_interface = &(sockPtr->alias);
 	printf("change the new pcap fd to new interface %s\n",p_interface);
 	/* Open network device for packet capture */ 
@@ -539,7 +537,7 @@ int create_pcap(SOCKET_INFO *sockPtr)
         }
 
 
-	//firstly close the old pcap fd;
+	/* firstly close the old pcap fd */
 	if(sockPtr->pcap)
 		pcap_close(sockPtr->pcap);
 	

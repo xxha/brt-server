@@ -123,7 +123,7 @@ void *ipc_monitor(void *para)
  	
 		memset(msg.buf,0x00,sizeof(msg.buf));
 		msg.mtype = 0x00;
-		ret = msgrcv(msgid_c2s, &msg, sizeof(struct msgtype),0,0);
+		ret = msgrcv(msgid_c2s, &msg, sizeof(struct msgtype),0, IPC_NOWAIT);
 		if(ret == -1) {
 			continue;
 		}
@@ -143,12 +143,11 @@ void *ipc_monitor(void *para)
 			}
 
 			msg.mtype = TYPE_BIND_ROUTE;
-			ret = msgsnd(msgid_s2c, &msg, sizeof(struct msgtype), 0);
+			ret = msgsnd(msgid_s2c, &msg, sizeof(struct msgtype), IPC_NOWAIT);
 			if(ret == -1) {
 				perror(NULL);
 				printf("%s:%d Failed to send  msg .\n",__FILE__,__LINE__);
 			}
-		
 			break;
 
 		case TYPE_DEV_NAME_MAP:	
@@ -196,7 +195,7 @@ void *ipc_monitor(void *para)
 				strcpy(msgBodyNetDevMap->status,"Success");
 			msg.mtype = TYPE_DEV_NAME_MAP;
 
-			ret = msgsnd(msgid_s2c, &msg, sizeof(struct msgtype), 0);
+			ret = msgsnd(msgid_s2c, &msg, sizeof(struct msgtype), IPC_NOWAIT);
 			if(ret == -1) {
 				perror(NULL);
 				printf("%s:%d Failed to send  msg .\n",__FILE__,__LINE__);
@@ -223,7 +222,7 @@ void *ipc_monitor(void *para)
 			}
 			msg.mtype = TYPE_DEV_INFO;
 			printf("%s\n",msgDevNetInfo->status);
-			ret = msgsnd(msgid_s2c, &msg, sizeof(struct msgtype), 0);
+			ret = msgsnd(msgid_s2c, &msg, sizeof(struct msgtype), IPC_NOWAIT);
 			if(ret == -1) {
 				perror(NULL);
 				printf("%s:%d Failed to send  msg .\n",__FILE__,__LINE__);

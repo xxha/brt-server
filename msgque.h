@@ -31,7 +31,7 @@ typedef struct {
 
 
 struct msgtype { 
-    long mtype;
+	long mtype;
 	char buf[512];
 };
 enum MSG_TYPE{

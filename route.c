@@ -69,7 +69,6 @@ inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned c
 	//printf("%s %08x\n",dst_addr,inpIP.s_addr);
 	if((inpIP.s_addr&0xFF000000)==0xFF000000){
 		printf("%s:%d\n",__FILE__,__LINE__);
-		//printf("%s %08x\n",dst_addr,inpIP.s_addr);
 		//pthread_mutex_lock(&rt_table_mutex);	
 		ret=broadcast(dst_addr,net_mask,local_gw,dev_name);
 		//pthread_mutex_unlock(&rt_table_mutex);			
@@ -83,7 +82,6 @@ inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned c
 		return 0;
 	}
 
-	
 	add_new_host_route=0;
 	while(1){
 		p=fgets(routeBuf,ROUTE_BUF_SIZE,pipeFile);
