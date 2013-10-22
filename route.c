@@ -7,6 +7,27 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+
+#define ROUTE_BUF_SIZE 		1024
+#define ROUTE_FILE_NAME 	"/proc/net/route"
+#define ADD_HOST_ROUTE 		"route add -host "
+#define ADD_HOST_ROUTE_NP 	"np route add "
+#define REMOVE_HOST_ROUTE 	"route del -host "
+#define ADD_DEFUALT_GW 		"route add -net 0.0.0.0 netmask 0.0.0.0 dev "
+#define DEL_DEFUALT_GW 		"route del -net 0.0.0.0 >/dev/null 2>&1 "
+#define EXCEPT_DST_ADR 		"0.0.0.0"
+#define FLUSH_ROUTE_CACHE 	"np route flush cache"
+#define HIDE_CMD_INFO 		">/dev/null 2>&1"
+
+
+int open_route_file();
+void close_route_file();
+static int broadcast(unsigned char *dst_addr,unsigned char *net_mask,unsigned char *gw,unsigned char *dev_name);
+
+static FILE *routeFile=NULL;
+static unsigned char routeBuf[ROUTE_BUF_SIZE+1];
+static pthread_mutex_t rt_table_mutex=PTHREAD_MUTEX_INITIALIZER;
+
 typedef struct{
 	unsigned char eth_name[16];
 	unsigned char dot_ip[18];
@@ -20,23 +41,6 @@ typedef struct{
 	int window;
 	int irtt;
 }ROUTE_TABLE;
-static pthread_mutex_t rt_table_mutex=PTHREAD_MUTEX_INITIALIZER;
-static FILE *routeFile=NULL;
-#define ROUTE_FILE_NAME "/proc/net/route"
-#define ROUTE_BUF_SIZE 1024
-#define ADD_HOST_ROUTE "route add -host "
-#define ADD_HOST_ROUTE_NP "np route add "
-#define REMOVE_HOST_ROUTE "route del -host "
-//#define REMOVE_HOST_ROUTE "np route del  "
-#define ADD_DEFUALT_GW "route add -net 0.0.0.0 netmask 0.0.0.0 dev "
-#define DEL_DEFUALT_GW "route del -net 0.0.0.0 >/dev/null 2>&1 "
-#define EXCEPT_DST_ADR "0.0.0.0"
-#define FLUSH_ROUTE_CACHE "np route flush cache"
-#define HIDE_CMD_INFO ">/dev/null 2>&1"
-static unsigned char routeBuf[ROUTE_BUF_SIZE+1];
-int open_route_file();
-void close_route_file();
-static int broadcast(unsigned char *dst_addr,unsigned char *net_mask,unsigned char *gw,unsigned char *dev_name);
 
 /*Add new route*/
 
@@ -53,7 +57,6 @@ inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned c
 	unsigned char rt_gateway[16];
 	int add_new_host_route;
 	char local_gw[32];
-	
 	unsigned int dstip,hostip,mask;
 
 	//printf("dst_addr:%s  net_mask:%s gateway:%s dev_name:%s host ip:%s\n",dst_addr,net_mask,gw,dev_name,host_ip);
@@ -190,19 +193,22 @@ static int broadcast(unsigned char *dst_addr,unsigned char *net_mask,unsigned ch
 	sleep(3);//fixme in the future,it need some delay to work fine.I don't know why.
 	return 0;
 }
+
 /*0,success;-1,failed.*/
-int open_route_file(){
-	if(NULL==routeFile){
-		routeFile=fopen(ROUTE_FILE_NAME,"r");		
-		if(routeFile==NULL)
+int open_route_file()
+{
+	if(NULL == routeFile) {
+		routeFile = fopen(ROUTE_FILE_NAME,"r");		
+		if(routeFile == NULL)
 			return -1;
 		else
 			return 0;
 	}
 }
-void close_route_file(){
-	if(routeFile!=NULL){	
+void close_route_file()
+{
+	if(routeFile != NULL){	
 		fclose(routeFile);
-		routeFile=NULL;
+		routeFile = NULL;
 	}
 }

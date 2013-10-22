@@ -141,37 +141,15 @@ int main(int argc, char *argv[])
 	}
 	
 	/* create socket */
-	for(i=0;i<MAX_DEV_NAMES;i++){
-#ifdef DROUTE
-		printf("droute process will run on the %d interface.\n",i);
-#else
-		dev_socket[i].sock = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL ));
-		if(dev_socket[i].sock<0){
-			printf("Failed to create socket for %s .\n",dev_socket[i].name);
-			ret = ERR_CREATE_SOCKET;
-			goto Out;
-		}	
-#endif
-
-#if 0		
-		ret = get_dev_mac_address(&dev_socket[i]);
-		if(ret != 0) {
-			printf("%s:%d-%s\n",__FILE__,__LINE__,"Failed to device mac.");
-			return -1;
-		}
-		/* bind the socket to the device. */
-		ret = bind_socket_to_devname(&dev_socket[i]);
-		if(ret != 0) {
-			printf("%s:%d-%s\n",__FILE__,__LINE__,"Failed to bind socket to device.");
-		}
-#endif	
-
+	for(i=0;i<MAX_DEV_NAMES;i++) {
 		ret = pthread_attr_init(&attr[i]);
 		if(ret != 0) {
 			printf("%s:%d-Faile to init thread attribute. %d .\n ",__FILE__,__LINE__);
 			return -3;
 		}
 #ifdef DROUTE
+		printf("droute process will run on the %d interface.\n",i);
+
 		g_netadd[i] = 0;
 		printf("use pcap mechanism,so don't need to use RAW to process the packets\n");
 		ret = pthread_create(&thread_sock[i],&attr[i],droute_process,&dev_socket[i]);
@@ -180,6 +158,13 @@ int main(int argc, char *argv[])
 			return -4;
 		}
 #else
+		dev_socket[i].sock = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL ));
+		if(dev_socket[i].sock<0){
+			printf("Failed to create socket for %s .\n",dev_socket[i].name);
+			ret = ERR_CREATE_SOCKET;
+			goto Out;
+		}	
+
 		ret = pthread_create(&thread_sock[i],&attr[i],packet_monitor,&dev_socket[i]);
 		if(ret != 0) {
 			printf("%s:%d-Faile to init thread attribute. %d .\n ",__FILE__,__LINE__);
