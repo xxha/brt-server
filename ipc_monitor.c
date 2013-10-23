@@ -18,66 +18,27 @@ extern SOCKET_INFO dev_socket[MAX_DEV_NAMES];
 /* communicate with the other process */
 void *ipc_monitor(void *para)
 {
-	int i,j,ret;
-	struct msgtype msg; 
-	key_t key_c2s,key_s2c; 
-	int msgid_c2s,msgid_s2c;
-	struct timespec delay_req,delay_rem;
+	int i, j, ret;
+	int msgid_c2s, msgid_s2c;
+	unsigned char dev_name_map[128];
+	struct msgtype msg;
+	struct timespec delay_req, delay_rem;
+	key_t key_c2s, key_s2c;
+	DEV_NET_INFO *msgDevNetInfo;
+	IPC_MONITOR_INFO *ipcMonitorPtr;
 	BIND_ROUTE_MSG_INFO_BODY *msgBodyBindRoute;
 	NET_DEV_NAME_MAP_MSG_INFO_BODY *msgBodyNetDevMap;
-	DEV_NET_INFO *msgDevNetInfo;
-	unsigned char dev_name_map[128];
-
-	IPC_MONITOR_INFO *ipcMonitorPtr;
 
 	/* It should not read here ,only occur in the debug steps. */	
 	if(para == NULL) {
 		printf("One can't make bricks without straw :).\n");
 		exit(FAIL_ILLEGAL_PARA_FOR_THREAD);
 	}
+
 	ipcMonitorPtr = (IPC_MONITOR_INFO *)para;
 	ipcMonitorPtr->status = STATUS_RUN;
 
-
-#if 0
-	if(access(UNIQ_FILE_NAME_C2S,F_OK)) {
-		ret = system("touch "UNIQ_FILE_NAME_C2S);
-		if(-1 == ret) {
-			printf("Failed to create the unique file %s.\n",UNIQ_FILE_NAME_C2S);
-			ipcMonitorPtr->status = STATUS_DEAD;
-			ret = -1;
-			pthread_exit(&ret);
-		}
-	}
-	if(access(UNIQ_FILE_NAME_S2C,F_OK)) {
-		ret = system("touch "UNIQ_FILE_NAME_S2C);
-		if(-1 == ret){
-			printf("Failed to create the unique file %s.\n",UNIQ_FILE_NAME_S2C);
-			ipcMonitorPtr->status = STATUS_DEAD;
-			ret = -1;
-			pthread_exit(&ret);
-		}
-	}
-#endif
-#if 0
-	ret = system("rm -fr "UNIQ_FILE_NAME_S2C);
-	if(-1 == ret) {
-		printf("Failed delete the unique file %s.\n",UNIQ_FILE_NAME_S2C);
-		exit(FAIL_TO_DEL_UNIQ_QUE_FILE);
-	}
-	ret = system("rm -fr "UNIQ_FILE_NAME_C2S);
-	if(-1 == ret) {
-		printf("Failed delete the unique file %s.\n",UNIQ_FILE_NAME_C2S);
-		exit(FAIL_TO_DEL_UNIQ_QUE_FILE);
-	}
-	
-	ret = system("touch "UNIQ_FILE_NAME_C2S);
-	if(-1 == ret) {
-		printf("Failed to create the unique file.\n");
-		exit(FAIL_TO_CREATE_UNIQ_QUE_FILE);
-	}
-#endif	
-	key_c2s = ftok(KEY_FILE_NAME,1);
+	key_c2s = ftok(KEY_FILE_NAME, 1);
 	if(key_c2s == -1) {
 		printf("Failed to get key of msq quee.\n");
 		ipcMonitorPtr->status = STATUS_DEAD;
@@ -85,7 +46,7 @@ void *ipc_monitor(void *para)
 		pthread_exit(&ret);
 	}
 	
-	key_s2c = ftok(KEY_FILE_NAME,2);
+	key_s2c = ftok(KEY_FILE_NAME, 2);
 	if(key_s2c == -1) {
 		printf("Failed to get key of msq quee.\n");
 		ipcMonitorPtr->status = STATUS_DEAD;
@@ -130,7 +91,7 @@ void *ipc_monitor(void *para)
 	    	switch (msg.mtype) {
 		case TYPE_BIND_ROUTE:
 			printf("Server Receive:%s %s %s\n", msgBodyBindRoute->ip_addr,msgBodyBindRoute->gw,msgBodyBindRoute->dev_name); 
-			if(strcmp(msgBodyBindRoute->gw,"*")==0)
+			if(strcmp(msgBodyBindRoute->gw,"*") == 0)
 				strcpy(msgBodyBindRoute->gw,"0.0.0.0");
 
 			ret = keep_route(msgBodyBindRoute->ip_addr,msgBodyBindRoute->net_mask,msgBodyBindRoute->gw,
@@ -158,31 +119,28 @@ void *ipc_monitor(void *para)
 				printf("Dev org name:%s  Dev new name:%s\n",msgBodyNetDevMap->net_dev_name_map_list[i].orgDevName,
 									msgBodyNetDevMap->net_dev_name_map_list[i].newDevName);
 			}
-#endif		
-#if 0
 			printf("Before.\n");
 			for(i=0;i<DEV_COUNTS;i++)
 				printf("%s %s\n",dev_socket[i].name,dev_socket[i].alias);
 #endif					
-			for(i=0;i<ret;i++) {
-				for(j=0;j<DEV_COUNTS;j++) {						
-					if(strcmp(dev_socket[j].name,msgBodyNetDevMap->net_dev_name_map_list[i].orgDevName)==0) {
-						strcpy(dev_socket[j].alias,msgBodyNetDevMap->net_dev_name_map_list[i].newDevName);
+			for(i=0; i<ret; i++) {
+				for(j=0; j<DEV_COUNTS; j++) {						
+					if(strcmp(dev_socket[j].name, msgBodyNetDevMap->net_dev_name_map_list[i].orgDevName) == 0) {
+						strcpy(dev_socket[j].alias, msgBodyNetDevMap->net_dev_name_map_list[i].newDevName);
 						dev_socket[j].update=1;	
-						printf("%d %s %s\n",dev_socket[j].update,dev_socket[j].name,dev_socket[j].alias);
-						#ifdef DROUTE
+						printf("%d %s %s\n", dev_socket[j].update, dev_socket[j].name, dev_socket[j].alias);
+#ifdef DROUTE
 						printf("droute create new pcap fd for new interface");
 						ret=create_pcap(&dev_socket[j]);
-						#else
+#else
 						ret=bind_socket_to_devname(&dev_socket[j]);
-						#endif
+#endif
 					}
 				}						
 			}	
 			
 #if 0
 			printf("After.\n");
-		
 			for(i=0;i<DEV_COUNTS;i++)
 				printf("%s %s\n",dev_socket[i].name,dev_socket[i].alias);
 #endif

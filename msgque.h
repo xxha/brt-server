@@ -4,21 +4,21 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 
-#define   PERM S_IRUSR|S_IWUSR
-#define   BUFFER 255
-#define KEY_FILE_NAME "/sbin/brt-server"
-#define MAX_TXT_BUFFER_LEN 64
-#define MAX_DEV_NAME_LEN 8
+#define   BUFFER 		255
+#define   MAX_DEV_NAME_LEN 	8
+#define   MAX_TXT_BUFFER_LEN 	64
+#define   PERM 			S_IRUSR|S_IWUSR
+#define   KEY_FILE_NAME 	"/sbin/brt-server"
 
-typedef struct{
+typedef struct {
 	unsigned char ip_addr[MAX_TXT_BUFFER_LEN];
-    unsigned char net_mask[MAX_TXT_BUFFER_LEN];
-    unsigned char gw[MAX_TXT_BUFFER_LEN];
-    unsigned char dev_name[MAX_DEV_NAME_LEN];
-    unsigned char status[MAX_DEV_NAME_LEN];
+	unsigned char net_mask[MAX_TXT_BUFFER_LEN];
+	unsigned char gw[MAX_TXT_BUFFER_LEN];
+	unsigned char dev_name[MAX_DEV_NAME_LEN];
+	unsigned char status[MAX_DEV_NAME_LEN];
 }BIND_ROUTE_MSG_INFO_BODY;
 
-typedef struct{
+typedef struct {
 	unsigned char orgDevName[32];
 	unsigned char newDevName[32];
 }DEV_MAP_NODE;

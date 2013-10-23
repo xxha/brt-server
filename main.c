@@ -28,47 +28,47 @@
 #include "packet_monitor.h"
 #include "ipc_monitor.h"
 
-SOCKET_INFO dev_socket[MAX_DEV_NAMES]={
+SOCKET_INFO dev_socket[MAX_DEV_NAMES] = {
 	{
-		.sock=-1,
-		.name="eth0",
-		.alias="eth0",
-		.gateway="0.0.0.0",
- 		.index=0,
- 		.update=1,
- 		.cmd=CMD_RUN,
- 		.status=STATUS_IDEL,
- 		.work=0,
- 		.order=0,
+		.sock = -1,
+		.name = "eth0",
+		.alias = "eth0",
+		.gateway = "0.0.0.0",
+ 		.index = 0,
+ 		.update = 1,
+ 		.cmd = CMD_RUN,
+ 		.status = STATUS_IDEL,
+ 		.work = 0,
+ 		.order = 0,
 	},
 	{
-		.sock=-1,
-		.name="eth1",
-		.alias="eth1",
-		.gateway="0.0.0.0",
- 		.index=0,
- 		.update=1,
- 		.cmd=CMD_RUN,
- 		.status=STATUS_IDEL,
- 		.work=0,
- 		.order=1,
+		.sock = -1,
+		.name = "eth1",
+		.alias = "eth1",
+		.gateway = "0.0.0.0",
+ 		.index = 0,
+ 		.update = 1,
+ 		.cmd = CMD_RUN,
+ 		.status = STATUS_IDEL,
+ 		.work = 0,
+ 		.order = 1,
 	},
 	{
-		.sock=-1,
-		.name="eth3",
-		.alias="eth3",
-		.gateway="0.0.0.0",
- 		.index=0,
- 		.update=1, 	
- 		.cmd=CMD_RUN,
- 		.status=STATUS_IDEL,
- 		.work=0,
- 		.order=2,
+		.sock = -1,
+		.name = "eth3",
+		.alias = "eth3",
+		.gateway = "0.0.0.0",
+ 		.index = 0,
+ 		.update = 1, 	
+ 		.cmd = CMD_RUN,
+ 		.status = STATUS_IDEL,
+ 		.work = 0,
+ 		.order = 2,
 	}
 };
 
 #ifndef DROUTE
-PROTO_OPS proto_ops[2]={
+PROTO_OPS proto_ops[2] = {
 #ifdef ETH_IP
 	{0x08,0x00,parse_ip},
 #endif
@@ -78,10 +78,9 @@ PROTO_OPS proto_ops[2]={
 };
 #endif
 
-IPC_MONITOR_INFO ipcMonitorInfo={
-	.cmd=CMD_RUN,
- 	.status=STATUS_IDEL,
-
+IPC_MONITOR_INFO ipcMonitorInfo = {
+	.cmd = CMD_RUN,
+ 	.status = STATUS_IDEL,
 };
 
 extern unsigned int g_netadd[3];

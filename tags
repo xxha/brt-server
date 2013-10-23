@@ -77,7 +77,7 @@ BPF_W	pcap-bpf.h	624;"	d
 BPF_WORDALIGN	pcap-bpf.h	80;"	d
 BPF_X	pcap-bpf.h	653;"	d
 BRT_SERVER_EXIT_VALUE	pub.h	/^}BRT_SERVER_EXIT_VALUE;$/;"	t	typeref:enum:__anon11
-BUFFER	msgque.h	8;"	d
+BUFFER	msgque.h	7;"	d
 BYTE	pcap-dos.h	/^typedef unsigned char  BYTE;$/;"	t
 CC	Makefile	/^CC=arm-none-linux-gnueabi-gcc$/;"	m
 CFLAG	Makefile	/^CFLAG=-I\/home\/xxha\/tools\/pcap\/arm_lib\/include -DDROUTE -c$/;"	m
@@ -224,10 +224,10 @@ ERR_GET_DEV_IP	main.h	/^	ERR_GET_DEV_IP,$/;"	e	enum:ERR_VALUE
 ERR_INIT_THREAD_ATTR	main.h	/^	ERR_INIT_THREAD_ATTR,$/;"	e	enum:ERR_VALUE
 ERR_NO_PARA	main.h	/^	ERR_NO_PARA,$/;"	e	enum:ERR_VALUE
 ERR_RCV_SOCK_DATA	main.h	/^	ERR_RCV_SOCK_DATA,$/;"	e	enum:ERR_VALUE
-ERR_VALUE	main.h	/^enum ERR_VALUE{$/;"	g
+ERR_VALUE	main.h	/^enum ERR_VALUE {$/;"	g
 ETHER	pcap-dos.h	/^typedef BYTE           ETHER[6];$/;"	t
 ETHER_ADDR_LEN	droute.c	20;"	d	file:
-ETHER_PROTO_OFF	main.h	5;"	d
+ETHER_PROTO_OFF	main.h	6;"	d
 ETH_ALEN	pcap-dos.h	23;"	d
 ETH_ARP	pub.h	6;"	d
 ETH_DST_MAC	ip.c	6;"	d	file:
@@ -259,13 +259,13 @@ LOCKED_FUNC	pcap-dos.h	140;"	d
 LOCKED_VAR	pcap-dos.h	139;"	d
 MANAGE_PORT	pub.h	5;"	d
 MAXBYTES2CAPTURE	droute.c	12;"	d	file:
-MAX_CMD_NAME_LEN	main.h	34;"	d
-MAX_DEV_NAMES	main.h	3;"	d
-MAX_DEV_NAME_LEN	msgque.h	13;"	d
+MAX_CMD_NAME_LEN	main.h	39;"	d
+MAX_DEV_NAMES	main.h	4;"	d
+MAX_DEV_NAME_LEN	msgque.h	8;"	d
 MAX_DEV_ORG_COUNTS	scan_dev_name.h	4;"	d
-MAX_ETH_NAME_LEN	main.h	33;"	d
-MAX_FRAME_SIZE	main.h	4;"	d
-MAX_TXT_BUFFER_LEN	msgque.h	12;"	d
+MAX_ETH_NAME_LEN	main.h	38;"	d
+MAX_FRAME_SIZE	main.h	5;"	d
+MAX_TXT_BUFFER_LEN	msgque.h	9;"	d
 MAYBE_SWAPPED	pcap-int.h	/^	MAYBE_SWAPPED$/;"	e	enum:__anon16
 MODE_CAPT	pcap.h	289;"	d
 MODE_MON	pcap.h	291;"	d
@@ -294,10 +294,10 @@ PCAP_FDDIPAD	pcap-int.h	116;"	d
 PCAP_IF_LOOPBACK	pcap.h	196;"	d
 PCAP_VERSION_MAJOR	pcap.h	60;"	d
 PCAP_VERSION_MINOR	pcap.h	61;"	d
-PERM	msgque.h	7;"	d
+PERM	msgque.h	10;"	d
 PHARLAP	pcap-dos.h	34;"	d
-PROC_FILE_NAME_HEAD	main.h	19;"	d
-PROC_FILE_NAME_TAIL	main.h	20;"	d
+PROC_FILE_NAME_HEAD	main.h	8;"	d
+PROC_FILE_NAME_TAIL	main.h	9;"	d
 PROTO_OPS	main.h	/^}PROTO_OPS;$/;"	t	typeref:struct:__anon21
 PROTO_TYPE_II	packet_monitor.h	/^}PROTO_TYPE_II;$/;"	t	typeref:struct:__anon17
 PROTO_UNDEF	pcap-namedb.h	78;"	d
@@ -332,8 +332,8 @@ STATUS_IDEL	main.h	/^	STATUS_IDEL,$/;"	e	enum:__anon19
 STATUS_INFO	main.h	/^}STATUS_INFO;$/;"	t	typeref:enum:__anon19
 STATUS_RUN	main.h	/^	STATUS_RUN,$/;"	e	enum:__anon19
 SWAPPED	pcap-int.h	/^	SWAPPED,$/;"	e	enum:__anon16
-SYS_CTL_HEAD	main.h	21;"	d
-SYS_CTL_TAIL	main.h	22;"	d
+SYS_CTL_HEAD	main.h	10;"	d
+SYS_CTL_TAIL	main.h	11;"	d
 TFTP_BOOT_DIR	Makefile	/^TFTP_BOOT_DIR=\/tftpboot$/;"	m
 TRUE	pcap-dos.h	30;"	d
 TYPE_BIND_ROUTE	msgque.h	/^	TYPE_BIND_ROUTE=1,$/;"	e	enum:MSG_TYPE
@@ -403,7 +403,7 @@ cc	pcap-int.h	/^	int cc;$/;"	m	struct:pcap
 clear_promisc	pcap-int.h	/^	int	clear_promisc;	\/* must clear promiscuous mode when we close *\/$/;"	m	struct:pcap_md
 close	pcap-dos.h	/^         void  (*close)(struct device *dev);$/;"	m	struct:device
 close_op	pcap-int.h	/^	void	(*close_op)(pcap_t *);$/;"	m	struct:pcap
-close_route_file	route.c	/^void close_route_file(){$/;"	f
+close_route_file	route.c	/^void close_route_file()$/;"	f
 cmd	main.h	/^	volatile CMD_INFO cmd;$/;"	m	struct:__anon20
 cmd	main.h	/^	volatile CMD_INFO cmd;$/;"	m	struct:__anon22
 code	pcap-bpf.h	/^	u_short	code;$/;"	m	struct:bpf_insn
@@ -427,7 +427,7 @@ devNameMap	scan_dev_name.c	/^static DEV_NAME_MAP devNameMap[MAX_DEV_ORG_COUNTS]=
 devNetInfo	bindrt.c	/^NET_DEV_INFO_RET_INFO devNetInfo[]={$/;"	v
 dev_cur_name	scan_dev_name.h	/^	unsigned char dev_cur_name[DEV_NAME_MAX_SIZE];$/;"	m	struct:__anon10
 dev_name	bindrt.h	/^	unsigned char dev_name[32];$/;"	m	struct:__anon8
-dev_name	msgque.h	/^    unsigned char dev_name[MAX_DEV_NAME_LEN];$/;"	m	struct:__anon12
+dev_name	msgque.h	/^	unsigned char dev_name[MAX_DEV_NAME_LEN];$/;"	m	struct:__anon12
 dev_new_name	scan_dev_name.h	/^	unsigned char dev_new_name[DEV_NAME_MAX_SIZE];$/;"	m	struct:__anon10
 dev_org_name	scan_dev_name.h	/^	unsigned char dev_org_name[DEV_NAME_MAX_SIZE];$/;"	m	struct:__anon10
 dev_socket	main.c	/^SOCKET_INFO dev_socket[MAX_DEV_NAMES]={$/;"	v
@@ -465,7 +465,7 @@ get_rx_buf	pcap-dos.h	/^         BYTE *(*get_rx_buf) (int len);             \/* 
 get_stats	pcap-dos.h	/^         void *(*get_stats)(struct device *dev);$/;"	m	struct:device
 gethostdev	droute.c	/^int gethostdev(char * hostip, char * dev)$/;"	f
 getnonblock_op	pcap-int.h	/^	int	(*getnonblock_op)(pcap_t *, char *);$/;"	m	struct:pcap
-gw	msgque.h	/^    unsigned char gw[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon12
+gw	msgque.h	/^	unsigned char gw[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon12
 gw	route.c	/^	unsigned char gw[18];$/;"	m	struct:__anon15	file:
 hdrsize	pcap-int.h	/^	int hdrsize;$/;"	m	struct:pcap_sf
 hiByte	main.h	/^	unsigned char hiByte;$/;"	m	struct:__anon21
@@ -546,7 +546,7 @@ name	pcap.h	/^	char *name;		\/* name to hand to "pcap_open_live()" *\/$/;"	m	str
 netDevNameInfo	bindrt.c	/^NET_DEV_NAME_RET_INFO netDevNameInfo[]={$/;"	v
 net_dev_name_map_list	msgque.h	/^	DEV_MAP_NODE net_dev_name_map_list[3];\/\/max 3 vlan .$/;"	m	struct:__anon14
 net_device_stats	pcap-dos.h	/^  typedef struct net_device_stats {$/;"	s
-net_mask	msgque.h	/^    unsigned char net_mask[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon12
+net_mask	msgque.h	/^	unsigned char net_mask[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon12
 netmask	bindrt.h	/^	unsigned char netmask[32];$/;"	m	struct:__anon8
 netmask	main.h	/^	unsigned char netmask[32];$/;"	m	struct:__anon20
 netmask	pcap.h	/^	struct sockaddr *netmask;	\/* netmask for that address *\/$/;"	m	struct:pcap_addr	typeref:struct:pcap_addr::sockaddr
@@ -560,7 +560,7 @@ nonblock	pcap-int.h	/^	int nonblock;$/;"	m	struct:pcap
 num_elem	pcap-dos.h	/^         int          num_elem;   \/* number of elements *\/$/;"	m	struct:rx_ringbuf
 offset	pcap-int.h	/^	int offset;		\/* offset for proper alignment *\/$/;"	m	struct:pcap
 open	pcap-dos.h	/^         int   (*open) (struct device *dev);$/;"	m	struct:device
-open_route_file	route.c	/^int open_route_file(){$/;"	f
+open_route_file	route.c	/^int open_route_file()$/;"	f
 order	main.h	/^	int order;$/;"	m	struct:__anon20
 orgDevName	bindrt.h	/^	unsigned char orgDevName[32];$/;"	m	struct:__anon7
 orgDevName	msgque.h	/^	unsigned char orgDevName[32];$/;"	m	struct:__anon13
@@ -661,8 +661,8 @@ stats_op	pcap-int.h	/^	int	(*stats_op)(pcap_t *, struct pcap_stat *);$/;"	m	stru
 status	bindrt.h	/^	unsigned char status[32];$/;"	m	struct:__anon8
 status	main.h	/^	volatile STATUS_INFO status;$/;"	m	struct:__anon20
 status	main.h	/^	volatile STATUS_INFO status;$/;"	m	struct:__anon22
+status	msgque.h	/^	unsigned char status[MAX_DEV_NAME_LEN];$/;"	m	struct:__anon12
 status	msgque.h	/^	unsigned char status[MAX_DEV_NAME_LEN];$/;"	m	struct:__anon14
-status	msgque.h	/^    unsigned char status[MAX_DEV_NAME_LEN];$/;"	m	struct:__anon12
 strlcpy	pcap-int.h	263;"	d
 swapped	pcap-int.h	/^	int swapped;$/;"	m	struct:pcap_sf
 swapped_type_t	pcap-int.h	/^} swapped_type_t;$/;"	t	typeref:enum:__anon16

@@ -1,10 +1,16 @@
 #ifndef __MAIN_H
 #define __MAIN_H
+
 #define MAX_DEV_NAMES 3
 #define MAX_FRAME_SIZE 1518
 #define ETHER_PROTO_OFF 12
 
-enum ERR_VALUE{
+#define PROC_FILE_NAME_HEAD "/proc/sys/net/ipv4/conf/"
+#define PROC_FILE_NAME_TAIL "/arp_ignore"
+#define SYS_CTL_HEAD "echo 1 > /proc/sys/net/ipv4/conf/"
+#define SYS_CTL_TAIL "/arp_ignore "
+
+enum ERR_VALUE {
 	ERR_CREATE_SOCKET,
 	ERR_GET_DEV_INDEX,
 	ERR_GET_DEV_IP,
@@ -16,20 +22,19 @@ enum ERR_VALUE{
 	ERR_ALLOC_MEM,
 	ERR_RCV_SOCK_DATA,
 };
-#define PROC_FILE_NAME_HEAD "/proc/sys/net/ipv4/conf/"
-#define PROC_FILE_NAME_TAIL "/arp_ignore"
-#define SYS_CTL_HEAD "echo 1 > /proc/sys/net/ipv4/conf/"
-#define SYS_CTL_TAIL "/arp_ignore "
-typedef enum{
+
+typedef enum {
 	CMD_RUN,
 	CMD_EXIT,
 }CMD_INFO;
-typedef enum{
+
+typedef enum {
 	STATUS_RUN,
 	STATUS_IDEL,
 	STATUS_DEAD,
 }STATUS_INFO;
-typedef struct{
+
+typedef struct {
 #define MAX_ETH_NAME_LEN 32
 #define MAX_CMD_NAME_LEN 128
 	int sock;
@@ -49,13 +54,14 @@ typedef struct{
 	int order;
 	//unsigned int cur_netadd;
 }SOCKET_INFO;
-typedef struct{
+
+typedef struct {
 	unsigned char hiByte;
 	unsigned char loByte;
 	int (*parse)(unsigned char *buf,int len,int vlan_len,unsigned int ip_addr,unsigned char *dev_name,unsigned char *result);
 }PROTO_OPS;
 
-typedef struct{
+typedef struct {
 	volatile CMD_INFO cmd;
 	volatile STATUS_INFO status;
 }IPC_MONITOR_INFO;
