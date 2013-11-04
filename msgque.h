@@ -11,22 +11,22 @@
 #define   KEY_FILE_NAME 	"/sbin/brt-server"
 
 typedef struct {
-	unsigned char ip_addr[MAX_TXT_BUFFER_LEN];
-	unsigned char net_mask[MAX_TXT_BUFFER_LEN];
-	unsigned char gw[MAX_TXT_BUFFER_LEN];
-	unsigned char dev_name[MAX_DEV_NAME_LEN];
-	unsigned char status[MAX_DEV_NAME_LEN];
+	char ip_addr[MAX_TXT_BUFFER_LEN];
+	char net_mask[MAX_TXT_BUFFER_LEN];
+	char gw[MAX_TXT_BUFFER_LEN];
+	char dev_name[MAX_DEV_NAME_LEN];
+	char status[MAX_DEV_NAME_LEN];
 }BIND_ROUTE_MSG_INFO_BODY;
 
 typedef struct {
-	unsigned char orgDevName[32];
-	unsigned char newDevName[32];
+	char orgDevName[32];
+	char newDevName[32];
 }DEV_MAP_NODE;
 
 typedef struct {
-	unsigned char counts[MAX_TXT_BUFFER_LEN];
+	char counts[MAX_TXT_BUFFER_LEN];
 	DEV_MAP_NODE net_dev_name_map_list[3];//max 3 vlan .
-	unsigned char status[MAX_DEV_NAME_LEN];
+	char status[MAX_DEV_NAME_LEN];
 }NET_DEV_NAME_MAP_MSG_INFO_BODY;
 
 struct msgtype { 

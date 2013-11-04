@@ -10,6 +10,24 @@
 #define SYS_CTL_HEAD "echo 1 > /proc/sys/net/ipv4/conf/"
 #define SYS_CTL_TAIL "/arp_ignore "
 
+#define __DEBUG__  
+#ifdef __DEBUG__  
+#define DEBUG(format,...) printf("File: "__FILE__", Line: %05d: "format"\n", __LINE__, ##__VA_ARGS__)  
+#else  
+#define DEBUG(format,...)  
+#endif  
+
+#define ETH_IP /*enable protocol parse */
+#define MANAGE_PORT "eth1"
+#define ETH_ARP
+typedef enum {
+	FAIL_TO_OPEN_ROUTE_FILE = 0,
+	FAIL_ILLEGAL_PARA_FOR_THREAD,
+	FAIL_TO_DEL_UNIQ_QUE_FILE,
+	FAIL_TO_CREATE_UNIQ_QUE_FILE,
+} BRT_SERVER_EXIT_VALUE;
+
+
 enum ERR_VALUE {
 	ERR_CREATE_SOCKET,
 	ERR_GET_DEV_INDEX,
@@ -26,7 +44,7 @@ enum ERR_VALUE {
 typedef enum {
 	CMD_RUN,
 	CMD_EXIT,
-}CMD_INFO;
+} CMD_INFO;
 
 typedef enum {
 	STATUS_RUN,
@@ -38,21 +56,20 @@ typedef struct {
 #define MAX_ETH_NAME_LEN 32
 #define MAX_CMD_NAME_LEN 128
 	int sock;
-	unsigned char name[MAX_ETH_NAME_LEN];
-	unsigned char alias[MAX_ETH_NAME_LEN];	
-	unsigned int ip_addr;//net order.
-	unsigned char ip_deci_dot[32];
+	char name[MAX_ETH_NAME_LEN];
+	char alias[MAX_ETH_NAME_LEN];	
+	unsigned int ip_addr;
+	char ip_deci_dot[32];
 	unsigned char mac[6];
-	unsigned char gateway[32];
-	unsigned char netmask[32];
+	char gateway[32];
+	char netmask[32];
 	int index;
 	volatile int update;
 	volatile CMD_INFO cmd;
 	volatile STATUS_INFO status;
-	char work;//0,sleep,1 work.
+	char work;			/* 0 = sleep, 1 = work. */
 	void *pcap;
 	int order;
-	//unsigned int cur_netadd;
 }SOCKET_INFO;
 
 typedef struct {
@@ -66,4 +83,5 @@ typedef struct {
 	volatile STATUS_INFO status;
 }IPC_MONITOR_INFO;
 
+int create_pcap(SOCKET_INFO *sockPtr);
 #endif

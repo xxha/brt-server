@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <pthread.h>
-#include "pub.h"
 #include "route.h"
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#include <ctype.h>
+#include <unistd.h>
 
 #define ROUTE_BUF_SIZE 		1024
 #define ROUTE_FILE_NAME 	"/proc/net/route"
@@ -20,15 +21,14 @@
 #define HIDE_CMD_INFO 		">/dev/null 2>&1"
 
 
+static FILE *routeFile = NULL;
+static char routeBuf[ROUTE_BUF_SIZE + 1];
+
 int open_route_file();
 void close_route_file();
-static int broadcast(unsigned char *dst_addr,unsigned char *net_mask,unsigned char *gw,unsigned char *dev_name);
+static int broadcast(char *dst_addr, char *net_mask, char *gw, char *dev_name);
 
-static FILE *routeFile=NULL;
-static unsigned char routeBuf[ROUTE_BUF_SIZE+1];
-static pthread_mutex_t rt_table_mutex=PTHREAD_MUTEX_INITIALIZER;
-
-typedef struct{
+typedef struct {
 	unsigned char eth_name[16];
 	unsigned char dot_ip[18];
 	unsigned char gw[18];
@@ -42,152 +42,145 @@ typedef struct{
 	int irtt;
 }ROUTE_TABLE;
 
-/*Add new route*/
-
-/*Delete the old one if it is needed.*/
-inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned char *gw,unsigned char *dev_name,unsigned char *host_ip){
-
-	int ret,i;
-	char *p,*q,*head,*tail;
-	ROUTE_TABLE rt;
-	unsigned char tmp[4],cmd[128],strIP[4];
-	int add=0;
-	struct in_addr inpIP,inpGW;
-	unsigned int netmask;
-	unsigned char rt_gateway[16];
+/*
+ * Add new route
+ * Delete the old one if it is needed.
+*/
+inline int keep_route(char *dst_addr, char *net_mask,
+	char *gw, char *dev_name, char *host_ip)
+{
+	int ret;
 	int add_new_host_route;
+	unsigned int dstip, hostip, mask;
+	char *p, *q, *head, *tail;
 	char local_gw[32];
-	unsigned int dstip,hostip,mask;
+	char rt_gateway[16];
+	char cmd[128];
+	struct in_addr inpIP;
 
-	//printf("dst_addr:%s  net_mask:%s gateway:%s dev_name:%s host ip:%s\n",dst_addr,net_mask,gw,dev_name,host_ip);
+	printf("dst_addr:%s  net_mask:%s gateway:%s dev_name:%s host ip:%s\n",
+					dst_addr, net_mask, gw, dev_name, host_ip);
 	
 	/* deal with exception */
-	if((strcmp(EXCEPT_DST_ADR,dst_addr)==0)||(!isdigit(dst_addr[0]))){
-		//printf("%s:%d dst_addr:%s\n",__FILE__,__LINE__,dst_addr);
+	if((strcmp(EXCEPT_DST_ADR, (char *)dst_addr) == 0) || (!isdigit(dst_addr[0]))) {
 		return -1;
 	}
-	strcpy(local_gw,gw);
-	/*dealwith broad cast */
+
+	/*deal with broadcast */
+	strcpy(local_gw, gw);
 	inet_aton(dst_addr, &inpIP);
-	//printf("%s %08x\n",dst_addr,inpIP.s_addr);
-	if((inpIP.s_addr&0xFF000000)==0xFF000000){
-		printf("%s:%d\n",__FILE__,__LINE__);
-		//pthread_mutex_lock(&rt_table_mutex);	
-		ret=broadcast(dst_addr,net_mask,local_gw,dev_name);
-		//pthread_mutex_unlock(&rt_table_mutex);			
+	if((inpIP.s_addr & 0xFF000000) == 0xFF000000) {
+		ret = broadcast(dst_addr, net_mask, local_gw, dev_name);
 		return 0;
 	}
 
-	sprintf(cmd,"np route show %s",dst_addr);
-	FILE *pipeFile=popen(cmd,"r");
-	if(NULL==pipeFile){
+	sprintf(cmd, "np route show %s", dst_addr);
+	FILE *pipeFile = popen(cmd, "r");
+	if(NULL == pipeFile) {
 		printf("Failed to exucte the command.\n");
 		return 0;
 	}
 
-	add_new_host_route=0;
-	while(1){
-		p=fgets(routeBuf,ROUTE_BUF_SIZE,pipeFile);
-		if(NULL==p){
+	add_new_host_route = 0;
+	while(1) {
+		p = fgets(routeBuf, ROUTE_BUF_SIZE, pipeFile);
+		if(NULL == p) {
 			add_new_host_route++;
 			break;
 		}
-		//printf("read a line:%s\n",p);
-		q=strstr(p,dev_name);
-		if(NULL==q){//ambiguous ,delete it.
-			sprintf(cmd,"np route del %s 2>&1",p);
+
+		q = strstr(p, dev_name);
+		if(NULL == q) {
+			sprintf(cmd, "np route del %s 2>&1", p);
 			system(cmd);
 			add_new_host_route++;
 			continue;
 		}
+
 		//ip same ,dev same ,compare the gateway.
-		if(strcmp(local_gw,"0.0.0.0")==0){
-			add_new_host_route--;//the old one have more fluent infomation than the new one .
+		if(strcmp(local_gw, "0.0.0.0") == 0) {
+			add_new_host_route--; //the old one have more fluent infomation than the new one .
 			continue;
 		}
-		q=strstr(p,"via");
-		if(NULL==q){
+
+		q = strstr(p, "via");
+		if(NULL == q) {
 			add_new_host_route++;
-			continue;//the old route item have no gateway info. add the new route anymore.
-		}else{
-			head=q;
-			while(*head==0x20)
+			continue; //the old route item have no gateway info. add the new route anymore.
+		} else {
+			head = q;
+			while(*head == 0x20)
 				head++;
-			tail=head;
-			while(*tail!=0x20)
+			tail = head;
+			while(*tail != 0x20)
 				tail++;
-			memcpy(rt_gateway,head,tail-head);
-			rt_gateway[tail-head]=0x00;			
+			memcpy(rt_gateway, head, tail-head);
+			rt_gateway[tail-head] = 0x00;			
 		}
-		if(strcmp(rt_gateway,local_gw)==0){
-			add_new_host_route--;//they are not empty, but are equal. so leave it alone .
+		if(strcmp(rt_gateway, local_gw) == 0) {
+			add_new_host_route--; //they are not empty, but are equal. so leave it alone .
 			continue;
-		}else{
+		} else {
 			//the new one is fluent than the old one ,delete the old one.
-			sprintf(cmd,"np route del %s 2>&1",p);
+			sprintf(cmd, "np route del %s 2>&1", p);
 			system(cmd);
 			add_new_host_route++;
 			continue;
 		}
-			
-			
 	}
-	if(add_new_host_route>0){
-		//printf("%s:%d\n",__FILE__,__LINE__);
+
+	if(add_new_host_route > 0) {
 		// compare the dest ip and the host ip. same subnet or different subnet.
-		ret=inet_pton(AF_INET,dst_addr,&dstip);
-		if(ret!=1){
+		ret = inet_pton(AF_INET, dst_addr, &dstip);
+		if(ret != 1) {
 			pclose(pipeFile);
 			return -1;
 		}
-		//printf("%s:%d\n",__FILE__,__LINE__);
-		ret=inet_pton(AF_INET,host_ip,&hostip);
-		if(ret!=1){
+		ret = inet_pton(AF_INET, host_ip, &hostip);
+		if(ret != 1) {
 			pclose(pipeFile);
 			return -1;
 		}
-		//printf("%s:%d\n",__FILE__,__LINE__);
-		ret=inet_pton(AF_INET,net_mask,&mask);
-		if(ret!=1){
+		ret = inet_pton(AF_INET, net_mask, &mask);
+		if(ret != 1) {
 			pclose(pipeFile);
 			return -1;
 		}
-		//printf("%s:%d dst_ip:%08x net mask:%08x host ip:%08x \n",__FILE__,__LINE__,dstip,mask,hostip);
-		//printf("%08x %08x\n",dstip&mask,hostip&mask);
-		if((dstip&mask)==(hostip&mask)){//same subnet.
-			//printf("%s:%d\n",__FILE__,__LINE__);
-			strcpy(local_gw,"0.0.0.0");
-		}else{
-			//printf("%s:%d\n",__FILE__,__LINE__);
-			if(strcmp(local_gw,"0.0.0.0")==0){
+
+		printf("%s:%d dst_ip:%08x net mask:%08x host ip:%08x \n",
+				__FILE__, __LINE__, dstip, mask, hostip);
+		printf("%08x %08x\n", dstip&mask, hostip&mask);
+
+		if((dstip&mask) == (hostip&mask)) {//same subnet.
+			strcpy(local_gw, "0.0.0.0");
+		} else {
+			if(strcmp(local_gw, "0.0.0.0") == 0) {
 				pclose(pipeFile);
-				return ;// different subnet ,need to have gateway.
+				return 0;// different subnet ,need to have gateway.
 			}
 		}
-		sprintf(cmd,"np route add %s via %s dev %s  %s",dst_addr,local_gw,dev_name,HIDE_CMD_INFO);		
+		sprintf(cmd, "np route add %s via %s dev %s  %s",
+			dst_addr, local_gw, dev_name, HIDE_CMD_INFO);		
 		system(cmd);
 	}
 
 	pclose(pipeFile);
+	return 0;
 }
 
-static int broadcast(unsigned char *dst_addr,unsigned char *net_mask,unsigned char *gw,unsigned char *dev_name){
-
-	unsigned char cmd[128];
+static int broadcast(char *dst_addr, char *net_mask,
+			char *gw, char *dev_name)
+{
+	char cmd[128];
 	
-	memset(cmd,0x00,sizeof(cmd));
-	sprintf(cmd,"%s %s >/dev/null 2>&1","np route del table local broadcast ",dst_addr);
-#if 0
-	printf("%s\n",cmd);
-#endif
+	memset(cmd, 0x00, sizeof(cmd));
+	sprintf(cmd, "%s %s >/dev/null 2>&1", "np route del table local broadcast ", dst_addr);
 	system(cmd);
 	system(cmd);
 
-	memset(cmd,0x00,sizeof(cmd));
-	sprintf(cmd,"%s %s %s %s >/dev/null 2>&1","np route add table local broadcast ",dst_addr,"dev",dev_name);
-#if 0
-	printf("%s\n",cmd);
-#endif
+	memset(cmd, 0x00, sizeof(cmd));
+	sprintf(cmd, "%s %s %s %s >/dev/null 2>&1", "np route add table local broadcast ",
+								dst_addr, "dev", dev_name);
 	
 	system(cmd);
 	sleep(3);//fixme in the future,it need some delay to work fine.I don't know why.
@@ -204,10 +197,12 @@ int open_route_file()
 		else
 			return 0;
 	}
+	return -1;
 }
+
 void close_route_file()
 {
-	if(routeFile != NULL){	
+	if(routeFile != NULL) {
 		fclose(routeFile);
 		routeFile = NULL;
 	}

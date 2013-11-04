@@ -73,13 +73,6 @@ void *scan_net_dev_name(void *para){
 			for(j=0;j<MAX_DEV_NAMES;j++)
 			if(strcmp(
 		}
-		
-	
-	
-
-
-
-
 
 	SOCKET_INFO *sockPtr;
 	struct ifreq ifr;
@@ -126,12 +119,8 @@ void *scan_net_dev_name(void *para){
 			pthread_exit(&ret);
 		}
 		
-		//sleep(1);
-#if 1	
 		nanosleep(&delay_req,&delay_rem);
-		//printf("cmd=%s ; filename=%s\n",sockPtr->cmd,sockPtr->fileName);
 		sprintf(fileName,"%s%s%s",PROC_FILE_NAME_HEAD,sockPtr->alias,PROC_FILE_NAME_TAIL);
-		//printf("%s :%s :%s:%d\n",sockPtr->name,sockPtr->alias,fileName,sockPtr->update);
 		if(access(fileName,F_OK)){
 				//printf("%s:%s\n",cmd,fileName);
 				eth_dev_appear=0;
@@ -145,8 +134,6 @@ void *scan_net_dev_name(void *para){
 			eth_dev_appear=0;
 		}
 			
-		//printf("%s:%d\n",__FILE__,__LINE__);
-		
 		if(eth_dev_appear==0){
 			sprintf(cmd,"%s%s%s",SYS_CTL_HEAD,sockPtr->alias,SYS_CTL_TAIL);
 			printf("%s\n",cmd);
@@ -204,17 +191,10 @@ void *scan_net_dev_name(void *para){
 			sockPtr->ip_addr=(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr.s_addr);
 			eth_dev_appear=1;
 		}
-#endif
 		
-		//printf("%s addr:%08x\n",sockPtr->alias,sockPtr->ip_addr);
 		memset(buf,0x00,sizeof(buf));
 		ret=recvfrom(sockPtr->sock,buf,MAX_FRAME_SIZE,0,(struct sockaddr *)&peerSockAddr,&len);
-		//ret=recvfrom(sockPtr->sock,buf,MAX_FRAME_SIZE,MSG_DONTWAIT,(struct sockaddr *)&peerSockAddr,&len);
 	 	if(ret == -1){
-	 		//perror(NULL);
-	    	//printf("Error occur when reading data from %s socket\n",sockPtr->name);
-	    	//ret=ERR_RCV_SOCK_DATA;
-			//pthread_exit(&ret);
 			continue;
 		}
 		pack_len=ret;
@@ -224,44 +204,15 @@ void *scan_net_dev_name(void *para){
 			continue;
 		}
 		/*filter the packet which is not for me.*/
-		if(((buf[0]!=sockPtr->mac[0])||(buf[1]!=sockPtr->mac[1])||(buf[2]!=sockPtr->mac[2])||(buf[3]!=sockPtr->mac[3])||(buf[4]!=sockPtr->mac[4])||(buf[5]!=sockPtr->mac[5]))&&
-		((buf[0]!=0xFF)||(buf[1]!=0xFF)||(buf[2]!=0xFF)||(buf[3]!=0xFF)||(buf[4]!=0xFF)|(buf[5]!=0xFF))){
-			//printf("Discard:%2x %02x %2x %02x %2x %02x\n",buf[0],buf[1],buf[2],buf[3],buf[4],buf[5]);
+		if(((buf[0] != sockPtr->mac[0]) || (buf[1] != sockPtr->mac[1])
+			|| (buf[2] != sockPtr->mac[2]) || (buf[3] != sockPtr->mac[3])
+			|| (buf[4] != sockPtr->mac[4]) || (buf[5] != sockPtr->mac[5]))
+			&& ((buf[0] != 0xFF) || (buf[1] != 0xFF) || (buf[2] != 0xFF)
+			|| (buf[3] != 0xFF) || (buf[4] != 0xFF) || (buf[5] != 0xFF))) {
 			continue;//The packate is not for me ,discard it.
 			}
 
-#if 0
-		if((buf[6]!=0x00)||
-			(buf[7]!=0x16)||
-			(buf[8]!=0x76)||
-			(buf[9]!=0xb7)||
-			(buf[10]!=0x6f)||
-			(buf[11]!=0xC0))
-			continue;
-			
-		int j,k;
-		printf("\n");
-		for(j=0,k=0;j<pack_len;j++,k++){
-			if(k==16){
-				printf("\n");
-				k=0;
-			}
-			printf("%02x ",buf[j]);	
-		}
-		printf("\n");
+		DEBUG("%s received %d bytes.\n",sockPtr->alias,pack_len);
 		
-#endif	
-#ifdef DEBUG		
-		printf("%s received %d bytes.\n",sockPtr->alias,pack_len);
-#endif	
-		
-		
-		//print_buf(buf,pack_len,16);
-		//sleep(1);
-		//printf("%s:%d\n",__FILE__,__LINE__);
-		//printf("dev name:%s %08X\n",sockPtr->name,sockPtr->ip_addr);
-		/* parse */
 		status=-1;
-
-
 }

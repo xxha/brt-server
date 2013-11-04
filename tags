@@ -4,9 +4,9 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
-ADD_DEFUALT_GW	route.c	16;"	d	file:
-ADD_HOST_ROUTE	route.c	13;"	d	file:
-ADD_HOST_ROUTE_NP	route.c	14;"	d	file:
+ADD_DEFUALT_GW	route.c	17;"	d	file:
+ADD_HOST_ROUTE	route.c	14;"	d	file:
+ADD_HOST_ROUTE_NP	route.c	15;"	d	file:
 ARGSUSED	pcap-dos.h	68;"	d
 AUTHOR	Makefile	/^AUTHOR=\\"VEEX\\"$/;"	m
 BIND_FAIL_RCV_MESSAGE	bindrt.h	/^	BIND_FAIL_RCV_MESSAGE,$/;"	e	enum:__anon1
@@ -16,8 +16,8 @@ BIND_FAIL_TO_GET_KEY	bindrt.h	/^	BIND_FAIL_TO_GET_KEY,$/;"	e	enum:__anon1
 BIND_FAIL_TO_GET_MSG_ID	bindrt.h	/^	BIND_FAIL_TO_GET_MSG_ID,$/;"	e	enum:__anon1
 BIND_KEY_FILE_NOT_EXIST	bindrt.h	/^	BIND_KEY_FILE_NOT_EXIST,$/;"	e	enum:__anon1
 BIND_RET_INFO	bindrt.h	/^}BIND_RET_INFO;$/;"	t	typeref:struct:__anon2
-BIND_ROUTE_MSG_INFO_BODY	msgque.h	/^}BIND_ROUTE_MSG_INFO_BODY;$/;"	t	typeref:struct:__anon12
-BIND_ROUTE_ON	bindrt.h	7;"	d
+BIND_ROUTE_MSG_INFO_BODY	msgque.h	/^}BIND_ROUTE_MSG_INFO_BODY;$/;"	t	typeref:struct:__anon11
+BIND_ROUTE_ON	bindrt.h	8;"	d
 BIND_RT_REVALUE	bindrt.h	/^}BIND_RT_REVALUE;$/;"	t	typeref:enum:__anon1
 BIND_SUCCESS	bindrt.h	/^	BIND_SUCCESS=0,$/;"	e	enum:__anon1
 BOOL	pcap-dos.h	/^typedef int            BOOL;$/;"	t
@@ -76,26 +76,28 @@ BPF_TXA	pcap-bpf.h	662;"	d
 BPF_W	pcap-bpf.h	624;"	d
 BPF_WORDALIGN	pcap-bpf.h	80;"	d
 BPF_X	pcap-bpf.h	653;"	d
-BRT_SERVER_EXIT_VALUE	pub.h	/^}BRT_SERVER_EXIT_VALUE;$/;"	t	typeref:enum:__anon11
+BRT_SERVER_EXIT_VALUE	main.h	/^} BRT_SERVER_EXIT_VALUE;$/;"	t	typeref:enum:__anon17
 BUFFER	msgque.h	7;"	d
 BYTE	pcap-dos.h	/^typedef unsigned char  BYTE;$/;"	t
-CC	Makefile	/^CC=arm-none-linux-gnueabi-gcc$/;"	m
-CFLAG	Makefile	/^CFLAG=-I\/home\/xxha\/tools\/pcap\/arm_lib\/include -DDROUTE -c$/;"	m
-CMD_BUFFER_SIZE	droute.c	15;"	d	file:
+CC	Makefile	/^CC=arm-none-linux-gnueabi-gcc -Wall -O2 -I.$/;"	m
+CFLAG	Makefile	/^CFLAG=-I\/home\/xxha\/tools\/pcap\/arm_lib\/include -DDARP -c$/;"	m
+CMD_BUFFER_SIZE	darp.c	18;"	d	file:
 CMD_EXIT	main.h	/^	CMD_EXIT,$/;"	e	enum:__anon18
-CMD_INFO	main.h	/^}CMD_INFO;$/;"	t	typeref:enum:__anon18
+CMD_INFO	main.h	/^} CMD_INFO;$/;"	t	typeref:enum:__anon18
 CMD_RUN	main.h	/^	CMD_RUN,$/;"	e	enum:__anon18
-DEL_DEFUALT_GW	route.c	17;"	d	file:
-DEV_COUNTS	main.c	/^int DEV_COUNTS=sizeof(dev_socket)\/sizeof(SOCKET_INFO);$/;"	v
+DEBUG	main.h	15;"	d
+DEBUG	main.h	17;"	d
+DEL_DEFUALT_GW	route.c	18;"	d	file:
+DEV_COUNTS	main.c	/^int DEV_COUNTS = sizeof(dev_socket) \/ sizeof(SOCKET_INFO);$/;"	v
 DEV_MAP_FAIL_RCV_MESSAGE	bindrt.h	/^	DEV_MAP_FAIL_RCV_MESSAGE,$/;"	e	enum:__anon3
 DEV_MAP_FAIL_SND_MESSAGE	bindrt.h	/^	DEV_MAP_FAIL_SND_MESSAGE,$/;"	e	enum:__anon3
 DEV_MAP_FAIL_TO_GET_KEY	bindrt.h	/^	DEV_MAP_FAIL_TO_GET_KEY,$/;"	e	enum:__anon3
 DEV_MAP_FAIL_TO_GET_MSG_ID	bindrt.h	/^	DEV_MAP_FAIL_TO_GET_MSG_ID,$/;"	e	enum:__anon3
 DEV_MAP_FAIL_TO_MAP_NET_DEV	bindrt.h	/^	DEV_MAP_FAIL_TO_MAP_NET_DEV,$/;"	e	enum:__anon3
 DEV_MAP_KEY_FILE_NOT_EXIST	bindrt.h	/^	DEV_MAP_KEY_FILE_NOT_EXIST,$/;"	e	enum:__anon3
-DEV_MAP_NODE	msgque.h	/^}DEV_MAP_NODE;$/;"	t	typeref:struct:__anon13
+DEV_MAP_NODE	msgque.h	/^}DEV_MAP_NODE;$/;"	t	typeref:struct:__anon12
 DEV_MAP_SUCCESS	bindrt.h	/^	DEV_MAP_SUCCESS=0,$/;"	e	enum:__anon3
-DEV_NAME_LEN	droute.c	17;"	d	file:
+DEV_NAME_LEN	darp.c	14;"	d	file:
 DEV_NAME_MAP	scan_dev_name.h	/^}DEV_NAME_MAP;$/;"	t	typeref:struct:__anon10
 DEV_NAME_MAX_SIZE	scan_dev_name.h	3;"	d
 DEV_NET_INFO	bindrt.h	/^}DEV_NET_INFO;$/;"	t	typeref:struct:__anon8
@@ -226,62 +228,62 @@ ERR_NO_PARA	main.h	/^	ERR_NO_PARA,$/;"	e	enum:ERR_VALUE
 ERR_RCV_SOCK_DATA	main.h	/^	ERR_RCV_SOCK_DATA,$/;"	e	enum:ERR_VALUE
 ERR_VALUE	main.h	/^enum ERR_VALUE {$/;"	g
 ETHER	pcap-dos.h	/^typedef BYTE           ETHER[6];$/;"	t
-ETHER_ADDR_LEN	droute.c	20;"	d	file:
+ETHER_ADDR_LEN	darp.c	17;"	d	file:
 ETHER_PROTO_OFF	main.h	6;"	d
 ETH_ALEN	pcap-dos.h	23;"	d
-ETH_ARP	pub.h	6;"	d
-ETH_DST_MAC	ip.c	6;"	d	file:
+ETH_ARP	main.h	22;"	d
+ETH_DST_MAC	parse.c	7;"	d	file:
 ETH_HLEN	pcap-dos.h	24;"	d
-ETH_IP	pub.h	4;"	d
+ETH_IP	main.h	20;"	d
 ETH_MAX	pcap-dos.h	27;"	d
 ETH_MIN	pcap-dos.h	26;"	d
 ETH_MTU	pcap-dos.h	25;"	d
-EXCEPT_DST_ADR	route.c	18;"	d	file:
-FAIL_ILLEGAL_PARA_FOR_THREAD	pub.h	/^	FAIL_ILLEGAL_PARA_FOR_THREAD,$/;"	e	enum:__anon11
-FAIL_TO_CREATE_UNIQ_QUE_FILE	pub.h	/^	FAIL_TO_CREATE_UNIQ_QUE_FILE,$/;"	e	enum:__anon11
-FAIL_TO_DEL_UNIQ_QUE_FILE	pub.h	/^	FAIL_TO_DEL_UNIQ_QUE_FILE,$/;"	e	enum:__anon11
-FAIL_TO_OPEN_ROUTE_FILE	pub.h	/^	FAIL_TO_OPEN_ROUTE_FILE=0,$/;"	e	enum:__anon11
+EXCEPT_DST_ADR	route.c	19;"	d	file:
+FAIL_ILLEGAL_PARA_FOR_THREAD	main.h	/^	FAIL_ILLEGAL_PARA_FOR_THREAD,$/;"	e	enum:__anon17
+FAIL_TO_CREATE_UNIQ_QUE_FILE	main.h	/^	FAIL_TO_CREATE_UNIQ_QUE_FILE,$/;"	e	enum:__anon17
+FAIL_TO_DEL_UNIQ_QUE_FILE	main.h	/^	FAIL_TO_DEL_UNIQ_QUE_FILE,$/;"	e	enum:__anon17
+FAIL_TO_OPEN_ROUTE_FILE	main.h	/^	FAIL_TO_OPEN_ROUTE_FILE = 0,$/;"	e	enum:__anon17
 FALSE	pcap-dos.h	31;"	d
-FLUSH_ROUTE_CACHE	ipc_monitor.c	13;"	d	file:
-FLUSH_ROUTE_CACHE	route.c	19;"	d	file:
-HIDE_CMD_INFO	route.c	20;"	d	file:
+FLUSH_ROUTE_CACHE	ipc_monitor.c	14;"	d	file:
+FLUSH_ROUTE_CACHE	route.c	20;"	d	file:
+HIDE_CMD_INFO	route.c	21;"	d	file:
 IPC_MONITOR_INFO	main.h	/^}IPC_MONITOR_INFO;$/;"	t	typeref:struct:__anon22
-IP_DF	droute.c	40;"	d	file:
-IP_HL	droute.c	48;"	d	file:
-IP_MF	droute.c	41;"	d	file:
-IP_OFFMASK	droute.c	42;"	d	file:
-IP_RF	droute.c	39;"	d	file:
-IP_SIZE	droute.c	14;"	d	file:
-IP_V	droute.c	49;"	d	file:
+IP_DF	darp.c	43;"	d	file:
+IP_HL	darp.c	21;"	d	file:
+IP_MF	darp.c	44;"	d	file:
+IP_OFFMASK	darp.c	45;"	d	file:
+IP_RF	darp.c	42;"	d	file:
+IP_SIZE	darp.c	13;"	d	file:
+IP_V	darp.c	22;"	d	file:
 KEY_FILE_NAME	msgque.h	11;"	d
 LFLAG	Makefile	/^LFLAG=-L\/home\/xxha\/tools\/pcap\/arm_lib\/lib -lpcap -lpthread$/;"	m
 LOCKED_FUNC	pcap-dos.h	140;"	d
 LOCKED_VAR	pcap-dos.h	139;"	d
-MANAGE_PORT	pub.h	5;"	d
-MAXBYTES2CAPTURE	droute.c	12;"	d	file:
-MAX_CMD_NAME_LEN	main.h	39;"	d
+MANAGE_PORT	main.h	21;"	d
+MAXBYTES2CAPTURE	darp.c	19;"	d	file:
+MAX_CMD_NAME_LEN	main.h	57;"	d
 MAX_DEV_NAMES	main.h	4;"	d
 MAX_DEV_NAME_LEN	msgque.h	8;"	d
 MAX_DEV_ORG_COUNTS	scan_dev_name.h	4;"	d
-MAX_ETH_NAME_LEN	main.h	38;"	d
+MAX_ETH_NAME_LEN	main.h	56;"	d
 MAX_FRAME_SIZE	main.h	5;"	d
 MAX_TXT_BUFFER_LEN	msgque.h	9;"	d
-MAYBE_SWAPPED	pcap-int.h	/^	MAYBE_SWAPPED$/;"	e	enum:__anon16
+MAYBE_SWAPPED	pcap-int.h	/^	MAYBE_SWAPPED$/;"	e	enum:__anon15
 MODE_CAPT	pcap.h	289;"	d
 MODE_MON	pcap.h	291;"	d
 MODE_STAT	pcap.h	290;"	d
 MSG_TYPE	msgque.h	/^enum MSG_TYPE{$/;"	g
-Metric	route.c	/^	unsigned char Metric;$/;"	m	struct:__anon15	file:
-NETDEV_COUNTS	droute.c	22;"	d	file:
+Metric	route.c	/^	unsigned char Metric;$/;"	m	struct:__anon14	file:
+NETDEV_COUNTS	darp.c	16;"	d	file:
 NET_DEV_INFO_RET_INFO	bindrt.h	/^}NET_DEV_INFO_RET_INFO;$/;"	t	typeref:struct:__anon6
 NET_DEV_INFO_RE_VALUE	bindrt.h	/^}NET_DEV_INFO_RE_VALUE;$/;"	t	typeref:enum:__anon5
-NET_DEV_NAME_MAP_MSG_INFO_BODY	msgque.h	/^}NET_DEV_NAME_MAP_MSG_INFO_BODY;$/;"	t	typeref:struct:__anon14
+NET_DEV_NAME_MAP_MSG_INFO_BODY	msgque.h	/^}NET_DEV_NAME_MAP_MSG_INFO_BODY;$/;"	t	typeref:struct:__anon13
 NET_DEV_NAME_MAP_NODE	bindrt.h	/^}NET_DEV_NAME_MAP_NODE;$/;"	t	typeref:struct:__anon7
 NET_DEV_NAME_RET_INFO	bindrt.h	/^}NET_DEV_NAME_RET_INFO;$/;"	t	typeref:struct:__anon4
 NET_DEV_NAME_RE_VALUE	bindrt.h	/^}NET_DEV_NAME_RE_VALUE;$/;"	t	typeref:enum:__anon3
 NET_STATS	pcap-dos.h	/^        } NET_STATS;$/;"	t	typeref:struct:net_device_stats
-NOT_SWAPPED	pcap-int.h	/^	NOT_SWAPPED,$/;"	e	enum:__anon16
-OBJ	Makefile	/^OBJ=main.o route.o ipc_monitor.o droute.o$/;"	m
+NOT_SWAPPED	pcap-int.h	/^	NOT_SWAPPED,$/;"	e	enum:__anon15
+OBJ	Makefile	/^OBJ=main.o route.o ipc_monitor.o darp.o$/;"	m
 OrigMissed	pcap-int.h	/^	long	OrigMissed;	\/* missed by i\/f before this run *\/$/;"	m	struct:pcap_md
 PCAP_ASSERT	pcap-dos.h	216;"	d
 PCAP_ASSERT	pcap-dos.h	221;"	d
@@ -299,21 +301,19 @@ PHARLAP	pcap-dos.h	34;"	d
 PROC_FILE_NAME_HEAD	main.h	8;"	d
 PROC_FILE_NAME_TAIL	main.h	9;"	d
 PROTO_OPS	main.h	/^}PROTO_OPS;$/;"	t	typeref:struct:__anon21
-PROTO_TYPE_II	packet_monitor.h	/^}PROTO_TYPE_II;$/;"	t	typeref:struct:__anon17
+PROTO_TYPE_II	packet_monitor.h	/^}PROTO_TYPE_II;$/;"	t	typeref:struct:__anon16
 PROTO_UNDEF	pcap-namedb.h	78;"	d
 Packet	pcap-int.h	/^	LPPACKET Packet;$/;"	m	struct:pcap
 QWORD	pcap-dos.h	/^  typedef unsigned __int64  QWORD;$/;"	t
 QWORD	pcap-dos.h	/^  typedef unsigned long long  QWORD;$/;"	t
-RCV_IP_OFF	arp.c	4;"	d	file:
-RCV_IP_OFF	ip.c	4;"	d	file:
+RCV_IP_OFF	parse.c	5;"	d	file:
 RECEIVE_BUF_SIZE	pcap-dos.h	106;"	d
 RECEIVE_QUEUE_SIZE	pcap-dos.h	102;"	d
-REMOVE_HOST_ROUTE	route.c	15;"	d	file:
-ROUTE_BUF_SIZE	route.c	11;"	d	file:
-ROUTE_FILE_NAME	route.c	12;"	d	file:
-ROUTE_TABLE	route.c	/^}ROUTE_TABLE;$/;"	t	typeref:struct:__anon15	file:
-SEND_IP_OFF	arp.c	3;"	d	file:
-SEND_IP_OFF	ip.c	3;"	d	file:
+REMOVE_HOST_ROUTE	route.c	16;"	d	file:
+ROUTE_BUF_SIZE	route.c	12;"	d	file:
+ROUTE_FILE_NAME	route.c	13;"	d	file:
+ROUTE_TABLE	route.c	/^}ROUTE_TABLE;$/;"	t	typeref:struct:__anon14	file:
+SEND_IP_OFF	parse.c	4;"	d	file:
 SET_DEV_NET_INFO_FAIL_RCV_MESSAGE	bindrt.h	/^	SET_DEV_NET_INFO_FAIL_RCV_MESSAGE,$/;"	e	enum:__anon5
 SET_DEV_NET_INFO_FAIL_SND_MESSAGE	bindrt.h	/^	SET_DEV_NET_INFO_FAIL_SND_MESSAGE,$/;"	e	enum:__anon5
 SET_DEV_NET_INFO_FAIL_TO_GET_KEY	bindrt.h	/^	SET_DEV_NET_INFO_FAIL_TO_GET_KEY,$/;"	e	enum:__anon5
@@ -325,13 +325,13 @@ SIZEOF_CHAR	pcap-stdinc.h	33;"	d
 SIZEOF_INT	pcap-stdinc.h	35;"	d
 SIZEOF_LONG_LONG	pcap-stdinc.h	37;"	d
 SIZEOF_SHORT	pcap-stdinc.h	34;"	d
-SIZE_ETHERNET	droute.c	19;"	d	file:
+SIZE_ETHERNET	darp.c	15;"	d	file:
 SOCKET_INFO	main.h	/^}SOCKET_INFO;$/;"	t	typeref:struct:__anon20
 STATUS_DEAD	main.h	/^	STATUS_DEAD,$/;"	e	enum:__anon19
 STATUS_IDEL	main.h	/^	STATUS_IDEL,$/;"	e	enum:__anon19
 STATUS_INFO	main.h	/^}STATUS_INFO;$/;"	t	typeref:enum:__anon19
 STATUS_RUN	main.h	/^	STATUS_RUN,$/;"	e	enum:__anon19
-SWAPPED	pcap-int.h	/^	SWAPPED,$/;"	e	enum:__anon16
+SWAPPED	pcap-int.h	/^	SWAPPED,$/;"	e	enum:__anon15
 SYS_CTL_HEAD	main.h	10;"	d
 SYS_CTL_TAIL	main.h	11;"	d
 TFTP_BOOT_DIR	Makefile	/^TFTP_BOOT_DIR=\/tftpboot$/;"	m
@@ -343,36 +343,37 @@ TotAccepted	pcap-int.h	/^	u_long	TotAccepted;	\/* count accepted by filter *\/$/
 TotDrops	pcap-int.h	/^	u_long	TotDrops;	\/* count of dropped packets *\/$/;"	m	struct:pcap_md
 TotMissed	pcap-int.h	/^	long	TotMissed;	\/* missed by i\/f during this run *\/$/;"	m	struct:pcap_md
 TotPkts	pcap-int.h	/^	u_long	TotPkts;	\/* can't oflow for 79 hrs on ether *\/$/;"	m	struct:pcap_md
-UDP_PORT_OFF	ip.c	5;"	d	file:
+UDP_PORT_OFF	parse.c	6;"	d	file:
 UINT	pcap-dos.h	/^  typedef unsigned int UINT;$/;"	t
-VERSION	Makefile	/^VERSION=\\"1.1.0\\"$/;"	m
+VERSION	Makefile	/^VERSION=\\"1.2.0\\"$/;"	m
 WORD	pcap-dos.h	/^typedef unsigned short WORD;$/;"	t
 _U_	pcap-dos.h	91;"	d
 _U_	pcap-dos.h	95;"	d
 _WINSOCKAPI_	pcap-stdinc.h	46;"	d
-__ARP__H	arp.h	2;"	d
+__ARP__H	parse.h	2;"	d
 __BIND_ROUTE_H	bindrt.h	3;"	d
+__DEBUG__	main.h	13;"	d
 __IPC_MONITOR_H	ipc_monitor.h	3;"	d
-__IP__H	ip.h	2;"	d
+__IP__H	parse.h	7;"	d
 __MAIN_H	main.h	2;"	d
 __MSG__QUE__H	msgque.h	2;"	d
 __PACKET_MONITOR_H	packet_monitor.h	2;"	d
 __PCAP_DOS_H	pcap-dos.h	9;"	d
-__PUB__H	pub.h	2;"	d
 __ROUTE__H	route.h	2;"	d
 __SCAN_DEV_NAME_H	scan_dev_name.h	2;"	d
 adapter	pcap-int.h	/^	ADAPTER *adapter;$/;"	m	struct:pcap
 addr	pcap-namedb.h	/^	u_char addr[6];$/;"	m	struct:pcap_etherent
 addr	pcap.h	/^	struct sockaddr *addr;		\/* address *\/$/;"	m	struct:pcap_addr	typeref:struct:pcap_addr::sockaddr
 addresses	pcap.h	/^	struct pcap_addr *addresses;$/;"	m	struct:pcap_if	typeref:struct:pcap_if::pcap_addr
-alias	main.h	/^	unsigned char alias[MAX_ETH_NAME_LEN];	$/;"	m	struct:__anon20
+alias	main.h	/^	char alias[MAX_ETH_NAME_LEN];	$/;"	m	struct:__anon20
+arpcheck	darp.c	/^int arpcheck(char * hostip, char * interface)$/;"	f
 base	pcap-int.h	/^	u_char *base;$/;"	m	struct:pcap_sf
 base_addr	pcap-dos.h	/^         DWORD  base_addr;      \/* device I\/O address       *\/$/;"	m	struct:device
 bf_insns	pcap-bpf.h	/^	struct bpf_insn *bf_insns;$/;"	m	struct:bpf_program	typeref:struct:bpf_program::bpf_insn
 bf_len	pcap-bpf.h	/^	u_int bf_len;$/;"	m	struct:bpf_program
-bindRtInfo	bindrt.c	/^BIND_RET_INFO bindRtInfo[]={$/;"	v
-bind_route	bindrt-test.c	/^int bind_route(unsigned char *argv[]){$/;"	f
-bind_socket_to_devname	packet_monitor.c	/^int bind_socket_to_devname(SOCKET_INFO *sockInfo){$/;"	f
+bindRtInfo	bindrt.c	/^BIND_RET_INFO bindRtInfo[] = {$/;"	v
+bind_route	bindrt-test.c	/^int bind_route(char *argv[])$/;"	f
+bind_socket_to_devname	packet_monitor.c	/^int bind_socket_to_devname(SOCKET_INFO *sockInfo)$/;"	f
 bp	pcap-int.h	/^	u_char *bp;$/;"	m	struct:pcap
 bpf_insn	pcap-bpf.h	/^struct bpf_insn {$/;"	s
 bpf_int32	pcap-bpf.h	/^typedef	int bpf_int32;$/;"	t
@@ -385,7 +386,7 @@ bpf_u_int32	pcap.h	/^typedef	u_int bpf_u_int32;$/;"	t
 bpf_version	pcap-bpf.h	/^struct bpf_version {$/;"	s
 break_loop	pcap-int.h	/^	int break_loop;		\/* flag set to force break from packet-reading loop *\/$/;"	m	struct:pcap
 broadaddr	pcap.h	/^	struct sockaddr *broadaddr;	\/* broadcast address for that address *\/$/;"	m	struct:pcap_addr	typeref:struct:pcap_addr::sockaddr
-broadcast	route.c	/^static int broadcast(unsigned char *dst_addr,unsigned char *net_mask,unsigned char *gw,unsigned char *dev_name){$/;"	f	file:
+broadcast	route.c	/^static int broadcast(char *dst_addr, char *net_mask,$/;"	f	file:
 bs_capt	pcap.h	/^	u_int bs_capt;		\/* number of packets that reach the application *\/$/;"	m	struct:pcap_stat
 buf	msgque.h	/^	char buf[512];$/;"	m	struct:msgtype
 buf	test.c	/^unsigned char buf[2048];$/;"	v
@@ -410,8 +411,8 @@ code	pcap-bpf.h	/^	u_short	code;$/;"	m	struct:bpf_insn
 collisions	pcap.h	/^       u_long  collisions;$/;"	m	struct:pcap_stat_ex
 cooked	pcap-int.h	/^	int	cooked;		\/* using SOCK_DGRAM rather than SOCK_RAW *\/$/;"	m	struct:pcap_md
 copy_rx_buf	pcap-dos.h	/^         int   (*copy_rx_buf) (BYTE *buf, int max); \/* rx-copy (pktdrvr only) *\/$/;"	m	struct:device
-counts	msgque.h	/^	unsigned char counts[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon14
-create_pcap	droute.c	/^int create_pcap(SOCKET_INFO *sockPtr)$/;"	f
+counts	msgque.h	/^	char counts[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon13
+create_pcap	darp.c	/^int create_pcap(SOCKET_INFO *sockPtr)$/;"	f
 dag_fcs_bits	pcap-int.h	/^	int	dag_fcs_bits;	\/* Number of checksum bits from link layer *\/$/;"	m	struct:pcap_md
 dag_mem_base	pcap-int.h	/^	void	*dag_mem_base;	\/* DAG card memory base address *\/$/;"	m	struct:pcap_md
 dag_mem_bottom	pcap-int.h	/^	u_char	*dag_mem_bottom;	\/* DAG card current memory bottom pointer *\/$/;"	m	struct:pcap_md
@@ -421,86 +422,86 @@ dag_mem_top	pcap-int.h	/^	u_int	dag_mem_top;	\/* DAG card current memory top off
 dag_offset_flags	pcap-int.h	/^	int	dag_offset_flags; \/* Flags to pass to dag_offset(). *\/$/;"	m	struct:pcap_md
 dag_stream	pcap-int.h	/^	int	dag_stream;	\/* DAG stream number *\/$/;"	m	struct:pcap_md
 dag_timeout	pcap-int.h	/^	int	dag_timeout;	\/* timeout specified to pcap_open_live.$/;"	m	struct:pcap_md
+darp_process	darp.c	/^void *darp_process(void *para)$/;"	f
 data	pcap-dos.h	/^         BYTE  data[ETH_MAX+10];  \/* add some margin. data[0] should be *\/$/;"	m	struct:rx_elem
 description	pcap.h	/^	char *description;	\/* textual description of interface, or NULL *\/$/;"	m	struct:pcap_if
 devNameMap	scan_dev_name.c	/^static DEV_NAME_MAP devNameMap[MAX_DEV_ORG_COUNTS]={$/;"	v	file:
-devNetInfo	bindrt.c	/^NET_DEV_INFO_RET_INFO devNetInfo[]={$/;"	v
+devNetInfo	bindrt.c	/^NET_DEV_INFO_RET_INFO devNetInfo[] = {$/;"	v
 dev_cur_name	scan_dev_name.h	/^	unsigned char dev_cur_name[DEV_NAME_MAX_SIZE];$/;"	m	struct:__anon10
-dev_name	bindrt.h	/^	unsigned char dev_name[32];$/;"	m	struct:__anon8
-dev_name	msgque.h	/^	unsigned char dev_name[MAX_DEV_NAME_LEN];$/;"	m	struct:__anon12
+dev_name	bindrt.h	/^	char dev_name[32];$/;"	m	struct:__anon8
+dev_name	msgque.h	/^	char dev_name[MAX_DEV_NAME_LEN];$/;"	m	struct:__anon11
 dev_new_name	scan_dev_name.h	/^	unsigned char dev_new_name[DEV_NAME_MAX_SIZE];$/;"	m	struct:__anon10
 dev_org_name	scan_dev_name.h	/^	unsigned char dev_org_name[DEV_NAME_MAX_SIZE];$/;"	m	struct:__anon10
-dev_socket	main.c	/^SOCKET_INFO dev_socket[MAX_DEV_NAMES]={$/;"	v
+dev_socket	main.c	/^SOCKET_INFO dev_socket[MAX_DEV_NAMES] = {$/;"	v
 device	pcap-dos.h	/^  struct device {$/;"	s
 device	pcap-int.h	/^	char	*device;	\/* device name *\/$/;"	m	struct:pcap_md
 direction	pcap-int.h	/^	pcap_direction_t direction;$/;"	m	struct:pcap
-discovery_udp_port	ip.c	/^unsigned char discovery_udp_port[]={0x80,0x18};$/;"	v
+discovery_udp_port	parse.c	/^unsigned char discovery_udp_port[] = {0x80,0x18};$/;"	v
 dlt_count	pcap-int.h	/^	int dlt_count;$/;"	m	struct:pcap
 dlt_list	pcap-int.h	/^	u_int *dlt_list;$/;"	m	struct:pcap
 dma	pcap-dos.h	/^         int    dma;            \/* DMA channel              *\/$/;"	m	struct:device
-dot_ip	route.c	/^	unsigned char dot_ip[18];$/;"	m	struct:__anon15	file:
-droute_process	droute.c	/^void *droute_process(void *para)$/;"	f
+dot_ip	route.c	/^	unsigned char dot_ip[18];$/;"	m	struct:__anon14	file:
 dstaddr	pcap.h	/^	struct sockaddr *dstaddr;	\/* P2P destination address for that address *\/$/;"	m	struct:pcap_addr	typeref:struct:pcap_addr::sockaddr
 elem_size	pcap-dos.h	/^         int          elem_size;  \/* size of each element *\/$/;"	m	struct:rx_ringbuf
-errInfo	bindrt.h	/^	unsigned char errInfo[128];$/;"	m	struct:__anon2
+errInfo	bindrt.h	/^	char errInfo[128];$/;"	m	struct:__anon2
 errInfo	bindrt.h	/^	unsigned char errInfo[128];$/;"	m	struct:__anon4
 errInfo	bindrt.h	/^	unsigned char errInfo[128];$/;"	m	struct:__anon6
 errbuf	pcap-int.h	/^	char errbuf[PCAP_ERRBUF_SIZE + 1];$/;"	m	struct:pcap
-eth_name	route.c	/^	unsigned char eth_name[16];$/;"	m	struct:__anon15	file:
-ether_dhost	droute.c	/^        u_char  ether_dhost[ETHER_ADDR_LEN];    \/* destination host address *\/$/;"	m	struct:sniff_ethernet	file:
-ether_shost	droute.c	/^        u_char  ether_shost[ETHER_ADDR_LEN];    \/* source host address *\/$/;"	m	struct:sniff_ethernet	file:
-ether_type	droute.c	/^        u_short ether_type;                     \/* IP? ARP? RARP? etc *\/$/;"	m	struct:sniff_ethernet	file:
+eth_name	route.c	/^	unsigned char eth_name[16];$/;"	m	struct:__anon14	file:
+ether_dhost	darp.c	/^	u_char  ether_dhost[ETHER_ADDR_LEN];    \/* destination host address *\/$/;"	m	struct:sniff_ethernet	file:
+ether_shost	darp.c	/^	u_char  ether_shost[ETHER_ADDR_LEN];    \/* source host address *\/$/;"	m	struct:sniff_ethernet	file:
+ether_type	darp.c	/^	u_short ether_type;			\/* IP? ARP? RARP? etc *\/$/;"	m	struct:sniff_ethernet	file:
 fcode	pcap-int.h	/^	struct bpf_program fcode;$/;"	m	struct:pcap	typeref:struct:pcap::bpf_program
 fddipad	pcap-int.h	/^	int fddipad;$/;"	m	struct:pcap
-findip	droute.c	/^int findip(char * dev, char * ipaddr,unsigned int *ip32,unsigned *netmask32)$/;"	f
+findip	darp.c	/^int findip(char * dev, char * ipaddr,unsigned int *ip32,unsigned *netmask32)$/;"	f
 flags	pcap-dos.h	/^         WORD   flags;          \/* Low-level status flags. *\/$/;"	m	struct:device
 flags	pcap.h	/^	bpf_u_int32 flags;	\/* PCAP_IF_ interface flags *\/$/;"	m	struct:pcap_if
-flags	route.c	/^	unsigned char flags;$/;"	m	struct:__anon15	file:
-g_netadd	droute.c	/^unsigned int g_netadd[NETDEV_COUNTS];$/;"	v
-gateway	bindrt.h	/^	unsigned char gateway[32];$/;"	m	struct:__anon8
-gateway	main.h	/^	unsigned char gateway[32];$/;"	m	struct:__anon20
-get_dev_mac_address	packet_monitor.c	/^int get_dev_mac_address(SOCKET_INFO *sockInfo){$/;"	f
-get_dev_mask	packet_monitor.c	/^int get_dev_mask(SOCKET_INFO *sockInfo){$/;"	f
+flags	route.c	/^	unsigned char flags;$/;"	m	struct:__anon14	file:
+g_netadd	darp.c	/^unsigned int g_netadd[NETDEV_COUNTS];$/;"	v
+gateway	bindrt.h	/^	char gateway[32];$/;"	m	struct:__anon8
+gateway	main.h	/^	char gateway[32];$/;"	m	struct:__anon20
+get_dev_mac_address	packet_monitor.c	/^int get_dev_mac_address(SOCKET_INFO *sockInfo)$/;"	f
+get_dev_mask	packet_monitor.c	/^int get_dev_mask(SOCKET_INFO *sockInfo)$/;"	f
 get_rx_buf	pcap-dos.h	/^         BYTE *(*get_rx_buf) (int len);             \/* rx-buf fetch\/enqueue *\/$/;"	m	struct:device
 get_stats	pcap-dos.h	/^         void *(*get_stats)(struct device *dev);$/;"	m	struct:device
-gethostdev	droute.c	/^int gethostdev(char * hostip, char * dev)$/;"	f
+gethostdev	darp.c	/^int gethostdev(char * hostip, char * dev)$/;"	f
 getnonblock_op	pcap-int.h	/^	int	(*getnonblock_op)(pcap_t *, char *);$/;"	m	struct:pcap
-gw	msgque.h	/^	unsigned char gw[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon12
-gw	route.c	/^	unsigned char gw[18];$/;"	m	struct:__anon15	file:
+gw	msgque.h	/^	char gw[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon11
+gw	route.c	/^	unsigned char gw[18];$/;"	m	struct:__anon14	file:
 hdrsize	pcap-int.h	/^	int hdrsize;$/;"	m	struct:pcap_sf
 hiByte	main.h	/^	unsigned char hiByte;$/;"	m	struct:__anon21
-hiByte	packet_monitor.h	/^	unsigned char hiByte;$/;"	m	struct:__anon17
+hiByte	packet_monitor.h	/^	unsigned char hiByte;$/;"	m	struct:__anon16
 ifindex	pcap-int.h	/^	int	ifindex;	\/* interface index of device we're bound to *\/$/;"	m	struct:pcap_md
 in_index	pcap-dos.h	/^         volatile int in_index;   \/* queue index head *\/$/;"	m	struct:rx_ringbuf
 index	main.h	/^	int index;$/;"	m	struct:__anon20
 index	pcap-int.h	/^    int		index;$/;"	m	struct:pcap_sf_patched_pkthdr
-init_msg_que	bindrt.c	/^static volatile init_msg_que=0;$/;"	v	file:
+init_msg_que	bindrt.c	/^static volatile int init_msg_que = 0;$/;"	v	file:
 inject_op	pcap-int.h	/^	int	(*inject_op)(pcap_t *, const void *, size_t);$/;"	m	struct:pcap
 inline	pcap-dos.h	52;"	d
 inline	pcap-stdinc.h	64;"	d
 inter_packet_wait	pcap-int.h	/^        int inter_packet_wait;   \/* offline: wait between packets *\/$/;"	m	struct:pcap
-ip	bindrt.h	/^	unsigned char ip[32];$/;"	m	struct:__anon8
+ip	bindrt.h	/^	char ip[32];$/;"	m	struct:__anon8
 ip_addr	main.h	/^	unsigned int ip_addr;\/\/net order.$/;"	m	struct:__anon20
-ip_addr	msgque.h	/^	unsigned char ip_addr[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon12
-ip_deci_dot	main.h	/^	unsigned char ip_deci_dot[32];$/;"	m	struct:__anon20
-ip_dst	droute.c	/^        struct  in_addr ip_src,ip_dst;  \/* source and dest address *\/$/;"	m	struct:sniff_ip	typeref:struct:sniff_ip::	file:
-ip_id	droute.c	/^        u_short ip_id;                  \/* identification *\/$/;"	m	struct:sniff_ip	file:
-ip_len	droute.c	/^        u_short ip_len;                 \/* total length *\/$/;"	m	struct:sniff_ip	file:
-ip_off	droute.c	/^        u_short ip_off;                 \/* fragment offset field *\/$/;"	m	struct:sniff_ip	file:
-ip_p	droute.c	/^        u_char  ip_p;                   \/* protocol *\/$/;"	m	struct:sniff_ip	file:
-ip_src	droute.c	/^        struct  in_addr ip_src,ip_dst;  \/* source and dest address *\/$/;"	m	struct:sniff_ip	typeref:struct:sniff_ip::in_addr	file:
-ip_sum	droute.c	/^        u_short ip_sum;                 \/* checksum *\/$/;"	m	struct:sniff_ip	file:
-ip_tos	droute.c	/^        u_char  ip_tos;                 \/* type of service *\/$/;"	m	struct:sniff_ip	file:
-ip_ttl	droute.c	/^        u_char  ip_ttl;                 \/* time to live *\/$/;"	m	struct:sniff_ip	file:
-ip_vhl	droute.c	/^        u_char  ip_vhl;                 \/* version << 4 | header length >> 2 *\/$/;"	m	struct:sniff_ip	file:
-ipcMonitorInfo	main.c	/^IPC_MONITOR_INFO ipcMonitorInfo={$/;"	v
+ip_addr	msgque.h	/^	char ip_addr[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon11
+ip_deci_dot	main.h	/^	char ip_deci_dot[32];$/;"	m	struct:__anon20
+ip_dst	darp.c	/^	struct  in_addr ip_src,ip_dst;		\/* source and dest address *\/$/;"	m	struct:sniff_ip	typeref:struct:sniff_ip::	file:
+ip_id	darp.c	/^	u_short ip_id;				\/* identification *\/$/;"	m	struct:sniff_ip	file:
+ip_len	darp.c	/^	u_short ip_len;				\/* total length *\/$/;"	m	struct:sniff_ip	file:
+ip_off	darp.c	/^	u_short ip_off;				\/* fragment offset field *\/$/;"	m	struct:sniff_ip	file:
+ip_p	darp.c	/^	u_char  ip_p;				\/* protocol *\/$/;"	m	struct:sniff_ip	file:
+ip_src	darp.c	/^	struct  in_addr ip_src,ip_dst;		\/* source and dest address *\/$/;"	m	struct:sniff_ip	typeref:struct:sniff_ip::in_addr	file:
+ip_sum	darp.c	/^	u_short ip_sum;				\/* checksum *\/$/;"	m	struct:sniff_ip	file:
+ip_tos	darp.c	/^	u_char  ip_tos;				\/* type of service *\/$/;"	m	struct:sniff_ip	file:
+ip_ttl	darp.c	/^	u_char  ip_ttl;				\/* time to live *\/$/;"	m	struct:sniff_ip	file:
+ip_vhl	darp.c	/^	u_char  ip_vhl;				\/* version << 4 | header length >> 2 *\/$/;"	m	struct:sniff_ip	file:
+ipcMonitorInfo	main.c	/^IPC_MONITOR_INFO ipcMonitorInfo = {$/;"	v
 ipc_monitor	ipc_monitor.c	/^void *ipc_monitor(void *para)$/;"	f
 irq	pcap-dos.h	/^         int    irq;            \/* device IRQ number        *\/$/;"	m	struct:device
-irtt	route.c	/^	int irtt;$/;"	m	struct:__anon15	file:
+irtt	route.c	/^	int irtt;$/;"	m	struct:__anon14	file:
 jf	pcap-bpf.h	/^	u_char 	jf;$/;"	m	struct:bpf_insn
 jt	pcap-bpf.h	/^	u_char 	jt;$/;"	m	struct:bpf_insn
 k	pcap-bpf.h	/^	bpf_int32 k;$/;"	m	struct:bpf_insn
-keep_route	route.c	/^inline int keep_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned char *gw,unsigned char *dev_name,unsigned char *host_ip){$/;"	f
+keep_route	route.c	/^inline int keep_route(char *dst_addr, char *net_mask,$/;"	f
 key_c2s	bindrt.c	/^static key_t key_c2s,key_s2c; $/;"	v	file:
 key_s2c	bindrt.c	/^static key_t key_c2s,key_s2c; $/;"	v	file:
 len	pcap-int.h	/^    bpf_u_int32 len;		\/* length this packet (off wire) *\/$/;"	m	struct:pcap_sf_patched_pkthdr
@@ -512,18 +513,18 @@ lib_pcap_namedb_h	pcap-namedb.h	37;"	d
 linktype	pcap-int.h	/^	int linktype;$/;"	m	struct:pcap
 linktype	pcap.h	/^	bpf_u_int32 linktype;	\/* data link type (LINKTYPE_*) *\/$/;"	m	struct:pcap_file_header
 loByte	main.h	/^	unsigned char loByte;$/;"	m	struct:__anon21
-loByte	packet_monitor.h	/^	unsigned char loByte;$/;"	m	struct:__anon17
+loByte	packet_monitor.h	/^	unsigned char loByte;$/;"	m	struct:__anon16
 lo_ifindex	pcap-int.h	/^	int	lo_ifindex;	\/* interface index of the loopback device *\/$/;"	m	struct:pcap_md
 long_name	pcap-dos.h	/^         const char *long_name;$/;"	m	struct:device
-mac	bindrt.h	/^	unsigned char mac[32];$/;"	m	struct:__anon8
+mac	bindrt.h	/^	char mac[32];$/;"	m	struct:__anon8
 mac	main.h	/^	unsigned char mac[6];$/;"	m	struct:__anon20
 magic	pcap.h	/^	bpf_u_int32 magic;$/;"	m	struct:pcap_file_header
-main	bindrt-test.c	/^int main(int argc, char *argv[]){$/;"	f
+main	bindrt-test.c	/^int main(int argc, char *argv[])$/;"	f
 main	main.c	/^int main(int argc, char *argv[])$/;"	f
-main	test.c	/^int main(int argc,char *argv[]){$/;"	f
+main	test.c	/^int main(int argc, char *argv[])$/;"	f
 main	tmp/client.c	/^int main(int argc,char *argv[]){$/;"	f
 main	tmp/server.c	/^int main(int argc,char *argv[]){$/;"	f
-mask	route.c	/^	unsigned char mask;$/;"	m	struct:__anon15	file:
+mask	route.c	/^	unsigned char mask;$/;"	m	struct:__anon14	file:
 max	pcap-dos.h	79;"	d
 max	pcap-dos.h	87;"	d
 md	pcap-int.h	/^	struct pcap_md md;$/;"	m	struct:pcap	typeref:struct:pcap::pcap_md
@@ -532,26 +533,26 @@ mem_start	pcap-dos.h	/^         DWORD  mem_start;      \/* shared mem start     
 min	pcap-dos.h	78;"	d
 min	pcap-dos.h	83;"	d
 min	pcap-int.h	255;"	d
-msgid_c2s	bindrt.c	/^static int msgid_c2s=0,msgid_s2c=0; $/;"	v	file:
-msgid_s2c	bindrt.c	/^static int msgid_c2s=0,msgid_s2c=0; $/;"	v	file:
+msgid_c2s	bindrt.c	/^static int msgid_c2s = 0,msgid_s2c = 0; $/;"	v	file:
+msgid_s2c	bindrt.c	/^static int msgid_c2s = 0,msgid_s2c = 0; $/;"	v	file:
 msgtype	msgque.h	/^struct msgtype { $/;"	s
-mtu	route.c	/^	int mtu;$/;"	m	struct:__anon15	file:
+mtu	route.c	/^	int mtu;$/;"	m	struct:__anon14	file:
 mtype	msgque.h	/^	long mtype;$/;"	m	struct:msgtype
 multicast	pcap-dos.h	/^          DWORD  multicast;             \/* multicast packets received   *\/$/;"	m	struct:net_device_stats
 multicast	pcap.h	/^       u_long  multicast;         \/* multicast packets received   *\/$/;"	m	struct:pcap_stat_ex
-name	main.h	/^	unsigned char name[MAX_ETH_NAME_LEN];$/;"	m	struct:__anon20
+name	main.h	/^	char name[MAX_ETH_NAME_LEN];$/;"	m	struct:__anon20
 name	pcap-dos.h	/^         const char *name;$/;"	m	struct:device
 name	pcap-namedb.h	/^	char name[122];$/;"	m	struct:pcap_etherent
 name	pcap.h	/^	char *name;		\/* name to hand to "pcap_open_live()" *\/$/;"	m	struct:pcap_if
-netDevNameInfo	bindrt.c	/^NET_DEV_NAME_RET_INFO netDevNameInfo[]={$/;"	v
-net_dev_name_map_list	msgque.h	/^	DEV_MAP_NODE net_dev_name_map_list[3];\/\/max 3 vlan .$/;"	m	struct:__anon14
+netDevNameInfo	bindrt.c	/^NET_DEV_NAME_RET_INFO netDevNameInfo[] = {$/;"	v
+net_dev_name_map_list	msgque.h	/^	DEV_MAP_NODE net_dev_name_map_list[3];\/\/max 3 vlan .$/;"	m	struct:__anon13
 net_device_stats	pcap-dos.h	/^  typedef struct net_device_stats {$/;"	s
-net_mask	msgque.h	/^	unsigned char net_mask[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon12
-netmask	bindrt.h	/^	unsigned char netmask[32];$/;"	m	struct:__anon8
-netmask	main.h	/^	unsigned char netmask[32];$/;"	m	struct:__anon20
+net_mask	msgque.h	/^	char net_mask[MAX_TXT_BUFFER_LEN];$/;"	m	struct:__anon11
+netmask	bindrt.h	/^	char netmask[32];$/;"	m	struct:__anon8
+netmask	main.h	/^	char netmask[32];$/;"	m	struct:__anon20
 netmask	pcap.h	/^	struct sockaddr *netmask;	\/* netmask for that address *\/$/;"	m	struct:pcap_addr	typeref:struct:pcap_addr::sockaddr
-newDevName	bindrt.h	/^	unsigned char newDevName[32];$/;"	m	struct:__anon7
-newDevName	msgque.h	/^	unsigned char newDevName[32];$/;"	m	struct:__anon13
+newDevName	bindrt.h	/^	char newDevName[32];$/;"	m	struct:__anon7
+newDevName	msgque.h	/^	char newDevName[32];$/;"	m	struct:__anon12
 next	pcap-dos.h	/^         struct device *next;   \/* next device in list      *\/$/;"	m	struct:device	typeref:struct:device::device
 next	pcap-int.h	/^	struct pcap *next;	\/* list of open promiscuous sock_packet pcaps *\/$/;"	m	struct:pcap_md	typeref:struct:pcap_md::pcap
 next	pcap.h	/^	struct pcap_addr *next;$/;"	m	struct:pcap_addr	typeref:struct:pcap_addr::pcap_addr
@@ -562,13 +563,13 @@ offset	pcap-int.h	/^	int offset;		\/* offset for proper alignment *\/$/;"	m	stru
 open	pcap-dos.h	/^         int   (*open) (struct device *dev);$/;"	m	struct:device
 open_route_file	route.c	/^int open_route_file()$/;"	f
 order	main.h	/^	int order;$/;"	m	struct:__anon20
-orgDevName	bindrt.h	/^	unsigned char orgDevName[32];$/;"	m	struct:__anon7
-orgDevName	msgque.h	/^	unsigned char orgDevName[32];$/;"	m	struct:__anon13
+orgDevName	bindrt.h	/^	char orgDevName[32];$/;"	m	struct:__anon7
+orgDevName	msgque.h	/^	char orgDevName[32];$/;"	m	struct:__anon12
 out_index	pcap-dos.h	/^         int          out_index;  \/* queue index tail *\/$/;"	m	struct:rx_ringbuf
-packet_monitor	packet_monitor.c	/^void *packet_monitor(void *para){$/;"	f
+packet_monitor	packet_monitor.c	/^void *packet_monitor(void *para)$/;"	f
 parse	main.h	/^	int (*parse)(unsigned char *buf,int len,int vlan_len,unsigned int ip_addr,unsigned char *dev_name,unsigned char *result);$/;"	m	struct:__anon21
-parse_arp	arp.c	/^int parse_arp(unsigned char *buf,int len,int vlan_len,unsigned int ip_addr,unsigned char *dev_name,unsigned char *result){$/;"	f
-parse_ip	ip.c	/^int parse_ip(unsigned char *buf,int len,int vlan_len,unsigned int ip_addr,unsigned char *dev_name,unsigned char *result){$/;"	f
+parse_arp	parse.c	/^int parse_arp(unsigned char *buf,int len,int vlan_len,unsigned int ip_addr,unsigned char *dev_name,unsigned char *result)$/;"	f
+parse_ip	parse.c	/^int parse_ip(unsigned char *buf, int len, int vlan_len, unsigned int ip_addr,$/;"	f
 pcap	main.h	/^	void *pcap;$/;"	m	struct:__anon20
 pcap	pcap-int.h	/^struct pcap {$/;"	s
 pcap_addr	pcap.h	/^struct pcap_addr {$/;"	s
@@ -594,24 +595,21 @@ pcap_timeval	pcap-int.h	/^struct pcap_timeval {$/;"	s
 peek_rx_buf	pcap-dos.h	/^         int   (*peek_rx_buf) (BYTE **buf);         \/* rx-non-copy at queue *\/$/;"	m	struct:device
 pkt	pcap-int.h	/^	u_char *pkt;$/;"	m	struct:pcap
 pkt_type	pcap-int.h	/^    unsigned char pkt_type;$/;"	m	struct:pcap_sf_patched_pkthdr
-print_buf	pub.c	/^void print_buf(unsigned char *buf,int size,int col){$/;"	f
 priv	pcap-dos.h	/^         void  *priv;           \/* private data *\/$/;"	m	struct:device
 probe	pcap-dos.h	/^         int   (*probe)(struct device *dev);$/;"	m	struct:device
-proto_ops	main.c	/^PROTO_OPS proto_ops[2]={$/;"	v
+proto_ops	main.c	/^PROTO_OPS proto_ops[2] = {$/;"	v
 protocol	pcap-int.h	/^    unsigned short protocol;$/;"	m	struct:pcap_sf_patched_pkthdr
 ps_drop	pcap.h	/^	u_int ps_drop;		\/* number of packets dropped *\/$/;"	m	struct:pcap_stat
 ps_ifdrop	pcap.h	/^	u_int ps_ifdrop;	\/* drops by interface XXX not yet supported *\/$/;"	m	struct:pcap_stat
 ps_recv	pcap.h	/^	u_int ps_recv;		\/* number of packets received *\/$/;"	m	struct:pcap_stat
 read_op	pcap-int.h	/^	int	(*read_op)(pcap_t *, int cnt, pcap_handler, u_char *);$/;"	m	struct:pcap
-refCnt	route.c	/^	unsigned char refCnt;$/;"	m	struct:__anon15	file:
+refCnt	route.c	/^	unsigned char refCnt;$/;"	m	struct:__anon14	file:
 release_rx_buf	pcap-dos.h	/^         int   (*release_rx_buf) (BYTE *buf);       \/* release after peek *\/$/;"	m	struct:device
 rfile	pcap-int.h	/^	FILE *rfile;$/;"	m	struct:pcap_sf
 rmem_end	pcap-dos.h	/^         DWORD  rmem_end;       \/* shared "recv" end        *\/$/;"	m	struct:device
 rmem_start	pcap-dos.h	/^         DWORD  rmem_start;     \/* shmem "recv" start       *\/$/;"	m	struct:device
-routeBuf	route.c	/^static unsigned char routeBuf[ROUTE_BUF_SIZE+1];$/;"	v	file:
-routeFile	route.c	/^static FILE *routeFile=NULL;$/;"	v	file:
-routecheck	droute.c	/^int routecheck(char * hostip, char * interface)$/;"	f
-rt_table_mutex	route.c	/^static pthread_mutex_t rt_table_mutex=PTHREAD_MUTEX_INITIALIZER;$/;"	v	file:
+routeBuf	route.c	/^static char routeBuf[ROUTE_BUF_SIZE + 1];$/;"	v	file:
+routeFile	route.c	/^static FILE *routeFile = NULL;$/;"	v	file:
 rx_bytes	pcap-dos.h	/^          DWORD  rx_bytes;              \/* total bytes received         *\/$/;"	m	struct:net_device_stats
 rx_bytes	pcap.h	/^       u_long  rx_bytes;          \/* total bytes received         *\/$/;"	m	struct:pcap_stat_ex
 rx_crc_errors	pcap-dos.h	/^          DWORD  rx_crc_errors;         \/* recv'd pkt with crc error    *\/$/;"	m	struct:net_device_stats
@@ -637,35 +635,35 @@ rx_packets	pcap.h	/^       u_long  rx_packets;        \/* total packets received
 rx_ringbuf	pcap-dos.h	/^  struct rx_ringbuf {$/;"	s
 scan_net_dev_name	scan_dev_name.c	/^void *scan_net_dev_name(void *para){$/;"	f
 set_datalink_op	pcap-int.h	/^	int	(*set_datalink_op)(pcap_t *, int);$/;"	m	struct:pcap
-set_gateway	bindrt-test.c	/^int set_gateway(unsigned char *argv[]){$/;"	f
+set_gateway	bindrt-test.c	/^int set_gateway(char *argv[])$/;"	f
 set_multicast_list	pcap-dos.h	/^         void  (*set_multicast_list)(struct device *dev);$/;"	m	struct:device
-set_vlan_device	bindrt-test.c	/^int set_vlan_device(unsigned char *argv[]){$/;"	f
+set_vlan_device	bindrt-test.c	/^int set_vlan_device(char *argv[])$/;"	f
 setdirection_op	pcap-int.h	/^	int	(*setdirection_op)(pcap_t *, pcap_direction_t);$/;"	m	struct:pcap
 setfilter_op	pcap-int.h	/^	int	(*setfilter_op)(pcap_t *, struct bpf_program *);$/;"	m	struct:pcap
 setnonblock_op	pcap-int.h	/^	int	(*setnonblock_op)(pcap_t *, int, char *);$/;"	m	struct:pcap
 sf	pcap-int.h	/^	struct pcap_sf sf;$/;"	m	struct:pcap	typeref:struct:pcap::pcap_sf
-shift_vlan_buf	packet_monitor.c	/^inline static void shift_vlan_buf(unsigned char *p,int *len){$/;"	f	file:
+shift_vlan_buf	packet_monitor.c	/^inline static void shift_vlan_buf(unsigned char *p,int *len)$/;"	f	file:
 sigfigs	pcap.h	/^	bpf_u_int32 sigfigs;	\/* accuracy of timestamps *\/$/;"	m	struct:pcap_file_header
 size	pcap-dos.h	/^         DWORD size;              \/* size copied to this element *\/$/;"	m	struct:rx_elem
 snaplen	pcap.h	/^	bpf_u_int32 snaplen;	\/* max length saved portion of each pkt *\/$/;"	m	struct:pcap_file_header
 snapshot	pcap-int.h	/^	int snapshot;$/;"	m	struct:pcap
-sniff_ethernet	droute.c	/^struct sniff_ethernet {$/;"	s	file:
-sniff_ip	droute.c	/^struct sniff_ip {$/;"	s	file:
+sniff_ethernet	darp.c	/^struct sniff_ethernet {$/;"	s	file:
+sniff_ip	darp.c	/^struct sniff_ip {$/;"	s	file:
 snprintf	pcap-int.h	272;"	d
 snprintf	pcap-stdinc.h	62;"	d
 sock	main.h	/^	int sock;$/;"	m	struct:__anon20
 sock_packet	pcap-int.h	/^	int	sock_packet;	\/* using Linux 2.0 compatible interface *\/$/;"	m	struct:pcap_md
-softupdate_udp_port	ip.c	/^unsigned char softupdate_udp_port[]={0x2b,0x5c};$/;"	v
+softupdate_udp_port	parse.c	/^unsigned char softupdate_udp_port[] = {0x2b,0x5c};$/;"	v
 stat	pcap-int.h	/^	struct pcap_stat stat;$/;"	m	struct:pcap_md	typeref:struct:pcap_md::pcap_stat
 stats_op	pcap-int.h	/^	int	(*stats_op)(pcap_t *, struct pcap_stat *);$/;"	m	struct:pcap
-status	bindrt.h	/^	unsigned char status[32];$/;"	m	struct:__anon8
+status	bindrt.h	/^	char status[32];$/;"	m	struct:__anon8
 status	main.h	/^	volatile STATUS_INFO status;$/;"	m	struct:__anon20
 status	main.h	/^	volatile STATUS_INFO status;$/;"	m	struct:__anon22
-status	msgque.h	/^	unsigned char status[MAX_DEV_NAME_LEN];$/;"	m	struct:__anon12
-status	msgque.h	/^	unsigned char status[MAX_DEV_NAME_LEN];$/;"	m	struct:__anon14
+status	msgque.h	/^	char status[MAX_DEV_NAME_LEN];$/;"	m	struct:__anon11
+status	msgque.h	/^	char status[MAX_DEV_NAME_LEN];$/;"	m	struct:__anon13
 strlcpy	pcap-int.h	263;"	d
 swapped	pcap-int.h	/^	int swapped;$/;"	m	struct:pcap_sf
-swapped_type_t	pcap-int.h	/^} swapped_type_t;$/;"	t	typeref:enum:__anon16
+swapped_type_t	pcap-int.h	/^} swapped_type_t;$/;"	t	typeref:enum:__anon15
 thiszone	pcap.h	/^	bpf_int32 thiszone;	\/* gmt to local correction *\/$/;"	m	struct:pcap_file_header
 timeout	pcap-int.h	/^	int	timeout;	\/* timeout specified to pcap_open_live *\/$/;"	m	struct:pcap_md
 timeout	pcap-int.h	/^	int timeout;$/;"	m	struct:pcap
@@ -698,12 +696,12 @@ tzoff	pcap-int.h	/^	int tzoff;		\/* timezone offset *\/$/;"	m	struct:pcap
 uint64	pcap-dos.h	/^  typedef unsigned __int64  uint64;$/;"	t
 uint64	pcap-dos.h	/^  typedef unsigned long long  uint64;$/;"	t
 update	main.h	/^	volatile int update;$/;"	m	struct:__anon20
-usage	bindrt-test.c	/^void usage(unsigned char *process){$/;"	f
-use	route.c	/^	unsigned char use;$/;"	m	struct:__anon15	file:
+usage	bindrt-test.c	/^void usage(char *process)$/;"	f
+use	route.c	/^	unsigned char use;$/;"	m	struct:__anon14	file:
 use_bpf	pcap-int.h	/^	int use_bpf;		\/* using kernel filter *\/$/;"	m	struct:pcap_md
-v100p_bind_route	bindrt.c	/^BIND_RET_INFO v100p_bind_route(unsigned char *dst_addr,unsigned char *net_mask,unsigned char *gw,unsigned char *dev_name){$/;"	f
-v100p_net_name_map	bindrt.c	/^NET_DEV_NAME_RET_INFO v100p_net_name_map(NET_DEV_NAME_MAP_NODE *list,int counts){$/;"	f
-v100p_set_net_info	bindrt.c	/^NET_DEV_INFO_RET_INFO v100p_set_net_info(DEV_NET_INFO *devNetInfoPtr){$/;"	f
+v100p_bind_route	bindrt.c	/^BIND_RET_INFO v100p_bind_route(char *dst_addr, char *net_mask, char *gw, char *dev_name)$/;"	f
+v100p_net_name_map	bindrt.c	/^NET_DEV_NAME_RET_INFO v100p_net_name_map(NET_DEV_NAME_MAP_NODE *list, int counts)$/;"	f
+v100p_set_net_info	bindrt.c	/^NET_DEV_INFO_RET_INFO v100p_set_net_info(DEV_NET_INFO *devNetInfoPtr)$/;"	f
 val	bindrt.h	/^	BIND_RT_REVALUE val;$/;"	m	struct:__anon2
 val	bindrt.h	/^	NET_DEV_INFO_RE_VALUE val;$/;"	m	struct:__anon6
 val	bindrt.h	/^	NET_DEV_NAME_RE_VALUE val;$/;"	m	struct:__anon4
@@ -711,11 +709,11 @@ version_major	pcap-int.h	/^	int version_major;$/;"	m	struct:pcap_sf
 version_major	pcap.h	/^	u_short version_major;$/;"	m	struct:pcap_file_header
 version_minor	pcap-int.h	/^	int version_minor;$/;"	m	struct:pcap_sf
 version_minor	pcap.h	/^	u_short version_minor;$/;"	m	struct:pcap_file_header
-vlan	packet_monitor.c	/^PROTO_TYPE_II vlan={0x81,0x00};$/;"	v
+vlan	packet_monitor.c	/^PROTO_TYPE_II vlan = {0x81,0x00};$/;"	v
 vsnprintf	pcap-int.h	277;"	d
 vsnprintf	pcap-stdinc.h	63;"	d
 wait_proc	pcap-int.h	/^        void (*wait_proc)(void); \/*          call proc while waiting *\/$/;"	m	struct:pcap
-window	route.c	/^	int window;$/;"	m	struct:__anon15	file:
+window	route.c	/^	int window;$/;"	m	struct:__anon14	file:
 work	bindrt.h	/^	char work;\/\/ 0,sleep ,1 work.$/;"	m	struct:__anon8
 work	main.h	/^	char work;\/\/0,sleep,1 work.$/;"	m	struct:__anon20
 xmit	pcap-dos.h	/^         int   (*xmit) (struct device *dev, const void *buf, int len);$/;"	m	struct:device
