@@ -132,7 +132,7 @@ void *ipc_monitor(void *para)
 						dev_socket[j].update=1;	
 						printf("%d %s %s\n", dev_socket[j].update, dev_socket[j].name, dev_socket[j].alias);
 #ifdef DARP
-						printf("droute create new pcap fd for new interface");
+						printf("droute create new pcap fd for new interface\n");
 						ret = create_pcap(&dev_socket[j]);
 #else
 						ret = bind_socket_to_devname(&dev_socket[j]);
